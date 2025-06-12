@@ -33,29 +33,32 @@ const Index = () => {
   const counts = getTabCounts();
 
   const tabButtons = [
-    { key: 'focus' as const, label: "Today's Focus", count: counts.focus, emoji: '🌱' },
-    { key: 'completed' as const, label: 'Completed', count: counts.completed, emoji: '✨' },
-    { key: 'pending' as const, label: 'Pending', count: counts.pending, emoji: '💙' }
+    { key: 'focus' as const, label: "Current Mission", count: counts.focus, emoji: '🚀' },
+    { key: 'completed' as const, label: 'Completed', count: counts.completed, emoji: '⭐' },
+    { key: 'pending' as const, label: 'Pending', count: counts.pending, emoji: '🌌' }
   ];
 
   return (
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <header className="flex justify-between items-start mb-8">
+        <header className="text-center mb-8">
           <div className="gentle-fade-in">
             <h1 className="text-4xl font-bold text-foreground mb-2">
-              To Do Bunny 🐰
+              To Do Bunny 🐰🚀
             </h1>
             <p className="text-muted-foreground">
-              Your cozy companion for tending digital gardens
+              Your cosmic companion for space missions and stellar productivity
             </p>
           </div>
-          
+        </header>
+
+        {/* Bunny Companion in main content */}
+        <div className="mb-8 flex justify-center">
           <div className="gentle-fade-in">
             <BunnyCompanion mood={bunnyMood} />
           </div>
-        </header>
+        </div>
 
         {/* Task Input */}
         <div className="mb-8">
