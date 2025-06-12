@@ -9,7 +9,7 @@ interface TaskItemProps {
   task: Task;
   isTimerActive: boolean;
   elapsedTime: number;
-  onToggleComplete: (taskId: string) => void;
+  onToggleComplete: (taskId: string, taskElement?: HTMLElement) => void;
   onStartTimer: (taskId: string) => void;
   onPauseTimer: () => void;
   onResetTimer: (taskId: string) => void;
@@ -37,6 +37,13 @@ const TaskItem: React.FC<TaskItemProps> = ({
     }
   };
 
+  const handleCheckboxChange = (checked: boolean | 'indeterminate') => {
+    if (typeof checked === 'boolean') {
+      const taskElement = document.getElementById(`task-${task.id}`);
+      onToggleComplete(task.id, taskElement || undefined);
+    }
+  };
+
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -53,16 +60,17 @@ const TaskItem: React.FC<TaskItemProps> = ({
   };
 
   return (
-    <div className={`bg-card border border-border rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 gentle-fade-in ${
-      isTimerActive ? 'ring-2 ring-primary/50 bg-primary/5' : ''
-    } ${task.isCompleted ? 'opacity-75' : ''} group cursor-pointer`} onClick={handleTaskClick}>
+    <div 
+      id={`task-${task.id}`}
+      className={`bg-card border border-border rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 gentle-fade-in ${
+        isTimerActive ? 'ring-2 ring-primary/50 bg-primary/5' : ''
+      } ${task.isCompleted ? 'opacity-75' : ''} group cursor-pointer`} 
+      onClick={handleTaskClick}
+    >
       <div className="flex items-center gap-3">
         <Checkbox
           checked={task.isCompleted}
-          onCheckedChange={(e) => {
-            e.stopPropagation();
-            onToggleComplete(task.id);
-          }}
+          onCheckedChange={handleCheckboxChange}
           className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
           onClick={(e) => e.stopPropagation()}
         />

@@ -1,10 +1,11 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BunnyMood } from '../types/task';
+import { BunnyMoodExtended } from '../types/gamification';
 
 interface BunnyCompanionProps {
-  mood: BunnyMood;
-  onMoodChange?: (mood: BunnyMood) => void;
+  mood: BunnyMoodExtended;
+  onMoodChange?: (mood: BunnyMoodExtended) => void;
   clickable?: boolean;
 }
 
@@ -20,9 +21,17 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood, clickable = true 
   const getBunnyEmoji = () => {
     switch (mood) {
       case 'happy':
-        return '🐰';
+        return '😊🐰';
       case 'sad':
-        return '🥺';
+        return '😢🐰';
+      case 'excited':
+        return '🤩🐰';
+      case 'focused':
+        return '🧐🐰';
+      case 'proud':
+        return '😤🐰';
+      case 'sleepy':
+        return '😴🐰';
       default:
         return '🐰';
     }
@@ -33,8 +42,16 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood, clickable = true 
     switch (mood) {
       case 'happy':
         return `${baseClasses} bunny-happy scale-110`;
+      case 'excited':
+        return `${baseClasses} bunny-celebration scale-115`;
+      case 'proud':
+        return `${baseClasses} bunny-proud scale-110`;
       case 'sad':
         return `${baseClasses} bunny-sad opacity-75`;
+      case 'sleepy':
+        return `${baseClasses} opacity-80 scale-95`;
+      case 'focused':
+        return `${baseClasses} hover:scale-105`;
       default:
         return `${baseClasses} hover:scale-105`;
     }
@@ -44,8 +61,16 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood, clickable = true 
     switch (mood) {
       case 'happy':
         return 'Mission accomplished! 🚀';
+      case 'excited':
+        return 'Ready for adventure! ✨';
+      case 'proud':
+        return 'Outstanding performance! 🏆';
       case 'sad':
         return 'Took a bit longer on this mission... 🌌';
+      case 'sleepy':
+        return 'Time for a rest break... 💤';
+      case 'focused':
+        return 'In the zone! 🎯';
       default:
         return 'Ready for the next mission! ✨';
     }
@@ -71,8 +96,10 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood, clickable = true 
           <div 
             className={getBunnyClasses()}
             style={{ 
-              filter: mood === 'happy' ? 'hue-rotate(280deg) saturate(1.3) brightness(1.2) drop-shadow(0 0 10px rgba(200, 100, 255, 0.5))' : 
-                     mood === 'sad' ? 'grayscale(0.4) brightness(0.7)' : 'drop-shadow(0 0 5px rgba(120, 60, 200, 0.3))'
+              filter: mood === 'happy' || mood === 'excited' || mood === 'proud' ? 
+                'hue-rotate(280deg) saturate(1.3) brightness(1.2) drop-shadow(0 0 10px rgba(200, 100, 255, 0.5))' : 
+                mood === 'sad' ? 'grayscale(0.4) brightness(0.7)' : 
+                'drop-shadow(0 0 5px rgba(120, 60, 200, 0.3))'
             }}
           >
             {getBunnyEmoji()}
