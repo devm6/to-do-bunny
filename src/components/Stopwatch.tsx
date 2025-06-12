@@ -56,7 +56,7 @@ const Stopwatch: React.FC<StopwatchProps> = ({ onClose }) => {
     return (
       <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
         <div className="text-center">
-          <div className="text-9xl font-mono text-white mb-8">
+          <div className="text-9xl font-bold text-white mb-8" style={{ fontFamily: 'Courier New, monospace' }}>
             {formatTime(time)}
           </div>
           <Button
@@ -97,7 +97,7 @@ const Stopwatch: React.FC<StopwatchProps> = ({ onClose }) => {
         </div>
 
         <div className="mb-6">
-          <div className="text-6xl font-mono text-white">
+          <div className="text-6xl font-bold text-white" style={{ fontFamily: 'Courier New, monospace' }}>
             {formatTime(time)}
           </div>
         </div>

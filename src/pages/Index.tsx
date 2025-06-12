@@ -49,7 +49,7 @@ const Index = () => {
         <header className="text-center mb-8">
           <div className="gentle-fade-in">
             <h1 className="text-4xl font-bold text-foreground mb-2">
-              To Do Bunny 🐰🚀
+              To Do Bunny 🐰
             </h1>
             <p className="text-muted-foreground">
               Your cosmic companion for space missions and stellar productivity
