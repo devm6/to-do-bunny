@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useTaskManager } from '../hooks/useTaskManager';
 import BunnyCompanion from '../components/BunnyCompanion';
@@ -7,7 +6,7 @@ import TaskList from '../components/TaskList';
 import Timer from '../components/Timer';
 import Stopwatch from '../components/Stopwatch';
 import { Button } from '@/components/ui/button';
-import { Timer as TimerIcon, Stopwatch as StopwatchIcon } from 'lucide-react';
+import { Timer as TimerIcon, Clock } from 'lucide-react';
 
 const Index = () => {
   const {
@@ -72,7 +71,7 @@ const Index = () => {
             variant="outline"
             className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
           >
-            <StopwatchIcon className="h-4 w-4 mr-2" />
+            <Clock className="h-4 w-4 mr-2" />
             Stopwatch
           </Button>
         </div>
