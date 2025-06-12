@@ -1,13 +1,22 @@
-
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BunnyMood } from '../types/task';
 
 interface BunnyCompanionProps {
   mood: BunnyMood;
   onMoodChange?: (mood: BunnyMood) => void;
+  clickable?: boolean;
 }
 
-const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood }) => {
+const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood, clickable = true }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (clickable) {
+      navigate('/timer');
+    }
+  };
+
   const getBunnyEmoji = () => {
     switch (mood) {
       case 'happy':
@@ -43,7 +52,12 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood }) => {
   };
 
   return (
-    <div className="bg-card border border-border rounded-2xl p-6 shadow-lg relative overflow-hidden">
+    <div 
+      className={`bg-card border border-border rounded-2xl p-6 shadow-lg relative overflow-hidden ${
+        clickable ? 'cursor-pointer hover:shadow-xl transition-shadow duration-300' : ''
+      }`}
+      onClick={handleClick}
+    >
       {/* Space stars background */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-2 left-4 w-1 h-1 bg-accent rounded-full starfield-twinkle" style={{ animationDelay: '0s' }}></div>
@@ -70,6 +84,11 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood }) => {
         <div className="mt-2 text-xs text-muted-foreground opacity-75">
           Space companion
         </div>
+        {clickable && (
+          <div className="mt-2 text-xs text-primary opacity-75">
+            Click for mission timer
+          </div>
+        )}
       </div>
     </div>
   );
