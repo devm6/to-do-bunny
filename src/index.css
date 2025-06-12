@@ -87,6 +87,11 @@
   100% { transform: translateY(0) rotate(0deg); }
 }
 
+@keyframes bunny-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(2deg); }
+}
+
 @keyframes task-complete {
   0% { transform: scale(1); }
   50% { transform: scale(1.02); }
@@ -109,6 +114,10 @@
 
 .bunny-sad {
   animation: bunny-sad 1s ease-in-out;
+}
+
+.bunny-float {
+  animation: bunny-float 3s ease-in-out infinite;
 }
 
 .task-complete {

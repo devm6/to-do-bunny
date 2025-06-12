@@ -20,14 +20,14 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood }) => {
   };
 
   const getBunnyClasses = () => {
-    const baseClasses = "text-6xl transition-all duration-300 transform";
+    const baseClasses = "text-6xl transition-all duration-300 transform cursor-pointer";
     switch (mood) {
       case 'happy':
-        return `${baseClasses} bunny-happy scale-110`;
+        return `${baseClasses} bunny-happy scale-110 animate-bounce`;
       case 'sad':
-        return `${baseClasses} bunny-sad opacity-75`;
+        return `${baseClasses} bunny-sad opacity-75 animate-pulse`;
       default:
-        return `${baseClasses} hover:scale-105`;
+        return `${baseClasses} hover:scale-105 bunny-float`;
     }
   };
 
@@ -43,13 +43,14 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood }) => {
   };
 
   return (
-    <div className="bg-card border border-border rounded-2xl p-6 shadow-lg relative overflow-hidden">
-      {/* Space stars background */}
+    <div className="bg-card border border-border rounded-2xl p-6 shadow-lg relative overflow-hidden animate-fade-in hover:shadow-xl transition-shadow duration-300">
+      {/* Space stars background with enhanced animations */}
       <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-2 left-4 w-1 h-1 bg-accent rounded-full starfield-twinkle" style={{ animationDelay: '0s' }}></div>
-        <div className="absolute top-8 right-6 w-0.5 h-0.5 bg-primary rounded-full starfield-twinkle" style={{ animationDelay: '0.7s' }}></div>
-        <div className="absolute bottom-6 left-8 w-0.5 h-0.5 bg-accent rounded-full starfield-twinkle" style={{ animationDelay: '1.2s' }}></div>
-        <div className="absolute bottom-3 right-4 w-1 h-1 bg-secondary rounded-full starfield-twinkle" style={{ animationDelay: '1.8s' }}></div>
+        <div className="absolute top-2 left-4 w-1 h-1 bg-accent rounded-full starfield-twinkle animate-ping" style={{ animationDelay: '0s' }}></div>
+        <div className="absolute top-8 right-6 w-0.5 h-0.5 bg-primary rounded-full starfield-twinkle animate-pulse" style={{ animationDelay: '0.7s' }}></div>
+        <div className="absolute bottom-6 left-8 w-0.5 h-0.5 bg-accent rounded-full starfield-twinkle animate-ping" style={{ animationDelay: '1.2s' }}></div>
+        <div className="absolute bottom-3 right-4 w-1 h-1 bg-secondary rounded-full starfield-twinkle animate-pulse" style={{ animationDelay: '1.8s' }}></div>
+        <div className="absolute top-1/2 left-1/3 w-0.5 h-0.5 bg-primary rounded-full starfield-twinkle animate-ping" style={{ animationDelay: '2.5s' }}></div>
       </div>
       
       <div className="text-center relative z-10">
@@ -64,10 +65,10 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood }) => {
             {getBunnyEmoji()}
           </div>
         </div>
-        <div className="text-sm text-muted-foreground font-medium">
+        <div className="text-sm text-muted-foreground font-medium animate-fade-in" style={{ animationDelay: '0.2s' }}>
           {getMoodText()}
         </div>
-        <div className="mt-2 text-xs text-muted-foreground opacity-75">
+        <div className="mt-2 text-xs text-muted-foreground opacity-75 animate-fade-in" style={{ animationDelay: '0.4s' }}>
           Space companion
         </div>
       </div>
