@@ -4,7 +4,10 @@ import { useTaskManager } from '../hooks/useTaskManager';
 import BunnyCompanion from '../components/BunnyCompanion';
 import TaskInput from '../components/TaskInput';
 import TaskList from '../components/TaskList';
+import Timer from '../components/Timer';
+import Stopwatch from '../components/Stopwatch';
 import { Button } from '@/components/ui/button';
+import { Timer as TimerIcon, Stopwatch as StopwatchIcon } from 'lucide-react';
 
 const Index = () => {
   const {
@@ -21,6 +24,8 @@ const Index = () => {
   } = useTaskManager();
 
   const [activeTab, setActiveTab] = useState<'focus' | 'completed' | 'pending'>('focus');
+  const [showTimer, setShowTimer] = useState(false);
+  const [showStopwatch, setShowStopwatch] = useState(false);
 
   const getTabCounts = () => {
     return {
@@ -52,6 +57,25 @@ const Index = () => {
             </p>
           </div>
         </header>
+
+        {/* Timer and Stopwatch Buttons */}
+        <div className="flex justify-center gap-4 mb-8">
+          <Button
+            onClick={() => setShowTimer(true)}
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
+          >
+            <TimerIcon className="h-4 w-4 mr-2" />
+            Timer
+          </Button>
+          <Button
+            onClick={() => setShowStopwatch(true)}
+            variant="outline"
+            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+          >
+            <StopwatchIcon className="h-4 w-4 mr-2" />
+            Stopwatch
+          </Button>
+        </div>
 
         {/* Bunny Companion in main content */}
         <div className="mb-8 flex justify-center">
@@ -110,6 +134,12 @@ const Index = () => {
           />
         </div>
       </div>
+
+      {/* Timer Modal */}
+      {showTimer && <Timer onClose={() => setShowTimer(false)} />}
+
+      {/* Stopwatch Modal */}
+      {showStopwatch && <Stopwatch onClose={() => setShowStopwatch(false)} />}
     </div>
   );
 };
