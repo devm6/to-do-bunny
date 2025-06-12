@@ -7,8 +7,8 @@
 
 @layer base {
   :root {
-    /* Cozy Dark Base Colors */
-    --background: 25 20% 8%; /* Deep forest floor */
+    /* Pure Black Background */
+    --background: 0 0% 0%; /* Pure black */
     --foreground: 330 15% 88%; /* Soft cream */
 
     --card: 25 25% 12%; /* Rich earth */
@@ -54,6 +54,7 @@
 
   body {
     @apply bg-background text-foreground;
+    background-color: black;
     background-image: 
       radial-gradient(circle at 20% 80%, rgba(85, 85, 70, 0.1) 0%, transparent 50%),
       radial-gradient(circle at 80% 20%, rgba(100, 60, 80, 0.08) 0%, transparent 50%);

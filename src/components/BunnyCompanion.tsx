@@ -23,7 +23,7 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood }) => {
     const baseClasses = "text-6xl transition-all duration-300 transform";
     switch (mood) {
       case 'happy':
-        return `${baseClasses} bunny-happy scale-110`;
+        return `${baseClasses} bunny-happy scale-110 animate-bounce`;
       case 'sad':
         return `${baseClasses} bunny-sad opacity-75`;
       default:
@@ -49,7 +49,7 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood }) => {
           <div 
             className={getBunnyClasses()}
             style={{ 
-              filter: mood === 'happy' ? 'hue-rotate(300deg) saturate(1.2)' : 
+              filter: mood === 'happy' ? 'hue-rotate(300deg) saturate(1.2) brightness(1.1)' : 
                      mood === 'sad' ? 'grayscale(0.3) brightness(0.8)' : 'none'
             }}
           >
