@@ -81,9 +81,10 @@ const Timer: React.FC<TimerProps> = ({ onClose }) => {
 
   if (isFullscreen) {
     return (
-      <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
+      <div className="fixed inset-0 bg-black flex items-center justify-center z-50 font-handwriting">
         <div className="text-center">
-          <div className="text-9xl font-bold text-white mb-8" style={{ fontFamily: 'Courier New, monospace' }}>
+          <div className="text-2xl text-white mb-4 bunny-float">🐰</div>
+          <div className="text-9xl font-bold text-white mb-8" style={{ fontFamily: 'Kalam, cursive' }}>
             {formatTime(minutes, seconds)}
           </div>
           <Button
@@ -99,7 +100,7 @@ const Timer: React.FC<TimerProps> = ({ onClose }) => {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 font-handwriting">
       <div className="bg-black border border-gray-700 rounded-lg p-8 text-center min-w-[300px]">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-white text-xl font-bold">Timer</h2>
@@ -124,7 +125,8 @@ const Timer: React.FC<TimerProps> = ({ onClose }) => {
         </div>
 
         <div className="mb-6">
-          <div className="text-6xl font-bold text-white mb-4" style={{ fontFamily: 'Courier New, monospace' }}>
+          <div className="text-2xl text-white mb-2 bunny-float">🐰</div>
+          <div className="text-6xl font-bold text-white mb-4" style={{ fontFamily: 'Kalam, cursive' }}>
             {formatTime(minutes, seconds)}
           </div>
           
@@ -138,6 +140,7 @@ const Timer: React.FC<TimerProps> = ({ onClose }) => {
                 className="bg-gray-800 text-white px-3 py-1 rounded border border-gray-600 w-20 text-center"
                 min="1"
                 max="999"
+                style={{ fontFamily: 'Kalam, cursive' }}
               />
             </div>
           )}

@@ -13,7 +13,7 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood }) => {
       case 'happy':
         return '🐰';
       case 'sad':
-        return '🥺';
+        return '🐰';
       default:
         return '🐰';
     }
@@ -34,16 +34,16 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood }) => {
   const getMoodText = () => {
     switch (mood) {
       case 'happy':
-        return 'Mission accomplished! 💕';
+        return 'Mission accomplished!';
       case 'sad':
-        return 'Took a bit longer on this mission... 💙';
+        return 'Took a bit longer on this mission...';
       default:
-        return 'Ready for the next mission! ✨';
+        return 'Ready for the next mission!';
     }
   };
 
   return (
-    <div className="bg-card border border-border rounded-2xl p-6 shadow-lg relative overflow-hidden animate-fade-in hover:shadow-xl transition-shadow duration-300">
+    <div className="bg-card border border-border rounded-2xl p-6 shadow-lg relative overflow-hidden animate-fade-in hover:shadow-xl transition-shadow duration-300 font-handwriting">
       {/* Space stars background with enhanced animations */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-2 left-4 w-1 h-1 bg-accent rounded-full starfield-twinkle animate-ping" style={{ animationDelay: '0s' }}></div>
