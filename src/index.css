@@ -1,6 +1,4 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -61,7 +59,7 @@
       radial-gradient(circle at 25% 75%, rgba(120, 60, 200, 0.1) 0%, transparent 50%),
       radial-gradient(circle at 75% 25%, rgba(60, 120, 200, 0.08) 0%, transparent 50%),
       radial-gradient(circle at 50% 50%, rgba(200, 100, 255, 0.03) 0%, transparent 70%);
-    font-family: 'Kalam', cursive;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 }
 
@@ -132,10 +130,6 @@
 
 .starfield-twinkle {
   animation: starfield-twinkle 2s ease-in-out infinite;
-}
-
-.font-handwriting {
-  font-family: 'Kalam', cursive;
 }
 
 /* Custom scrollbar for space feel */

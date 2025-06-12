@@ -23,11 +23,11 @@ const TaskInput: React.FC<TaskInputProps> = ({ onAddTask }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-card border border-border rounded-2xl p-6 shadow-lg gentle-fade-in font-handwriting">
+    <form onSubmit={handleSubmit} className="bg-card border border-border rounded-2xl p-6 shadow-lg gentle-fade-in">
       <div className="space-y-4">
         <div>
           <label className="text-sm font-medium text-muted-foreground mb-2 block">
-            What cozy quest awaits?
+            What cozy quest awaits? ✨
           </label>
           <Input
             type="text"
