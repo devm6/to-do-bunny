@@ -1,33 +1,32 @@
 
 import { useState, useEffect, useCallback } from 'react';
-import { UserStats, Achievement, ParticleEffect, SpaceLevel } from '../types/gamification';
+import { UserStats, Achievement, ParticleEffect, Level } from '../types/gamification';
 
-const SPACE_LEVELS: SpaceLevel[] = [
-  { level: 1, title: 'Space Cadet', experienceRequired: 0, pointsMultiplier: 1 },
-  { level: 2, title: 'Astronaut', experienceRequired: 100, pointsMultiplier: 1.2 },
-  { level: 3, title: 'Space Explorer', experienceRequired: 250, pointsMultiplier: 1.4 },
-  { level: 4, title: 'Mission Commander', experienceRequired: 500, pointsMultiplier: 1.6 },
-  { level: 5, title: 'Galaxy Guardian', experienceRequired: 1000, pointsMultiplier: 2.0 },
+const LEVELS: Level[] = [
+  { level: 1, title: 'Beginner', experienceRequired: 0, pointsMultiplier: 1 },
+  { level: 2, title: 'Focused', experienceRequired: 100, pointsMultiplier: 1.2 },
+  { level: 3, title: 'Productive', experienceRequired: 250, pointsMultiplier: 1.4 },
+  { level: 4, title: 'Expert', experienceRequired: 500, pointsMultiplier: 1.6 },
+  { level: 5, title: 'Master', experienceRequired: 1000, pointsMultiplier: 2.0 },
 ];
 
 const ACHIEVEMENTS: Achievement[] = [
-  { id: 'first-task', title: 'First Mission', description: 'Complete your first task', icon: '🚀', unlocked: false },
-  { id: 'streak-3', title: 'Constellation Builder', description: 'Complete tasks for 3 days in a row', icon: '⭐', unlocked: false },
-  { id: 'streak-7', title: 'Stellar Navigator', description: 'Complete tasks for 7 days in a row', icon: '🌟', unlocked: false },
-  { id: 'speed-demon', title: 'Hyperdrive', description: 'Complete a task under target time', icon: '⚡', unlocked: false },
-  { id: 'marathon', title: 'Endurance Pilot', description: 'Complete 10 tasks in one day', icon: '🛸', unlocked: false },
+  { id: 'first-task', title: 'First Task', description: 'Complete your first task', icon: '🎯', unlocked: false },
+  { id: 'streak-3', title: 'On a Roll', description: 'Complete tasks for 3 days in a row', icon: '⭐', unlocked: false },
+  { id: 'streak-7', title: 'Consistency', description: 'Complete tasks for 7 days in a row', icon: '🌟', unlocked: false },
+  { id: 'speed-demon', title: 'Quick Finisher', description: 'Complete a task under target time', icon: '⚡', unlocked: false },
+  { id: 'marathon', title: 'Productive Day', description: 'Complete 10 tasks in one day', icon: '🚀', unlocked: false },
 ];
 
 export const useGamification = () => {
   const [userStats, setUserStats] = useState<UserStats>({
-    spacePoints: 0,
+    points: 0,
     currentStreak: 0,
     longestStreak: 0,
     level: 1,
     experience: 0,
     lastActiveDate: new Date().toDateString(),
-    totalTasksCompleted: 0,
-    bunnyHappiness: 50
+    totalTasksCompleted: 0
   });
 
   const [achievements, setAchievements] = useState<Achievement[]>(ACHIEVEMENTS);
@@ -35,12 +34,12 @@ export const useGamification = () => {
 
   // Load stats from localStorage
   useEffect(() => {
-    const savedStats = localStorage.getItem('spaceProductivity-stats');
+    const savedStats = localStorage.getItem('productivity-stats');
     if (savedStats) {
       setUserStats(JSON.parse(savedStats));
     }
 
-    const savedAchievements = localStorage.getItem('spaceProductivity-achievements');
+    const savedAchievements = localStorage.getItem('productivity-achievements');
     if (savedAchievements) {
       setAchievements(JSON.parse(savedAchievements));
     }
@@ -48,16 +47,16 @@ export const useGamification = () => {
 
   // Save stats to localStorage
   useEffect(() => {
-    localStorage.setItem('spaceProductivity-stats', JSON.stringify(userStats));
+    localStorage.setItem('productivity-stats', JSON.stringify(userStats));
   }, [userStats]);
 
   useEffect(() => {
-    localStorage.setItem('spaceProductivity-achievements', JSON.stringify(achievements));
+    localStorage.setItem('productivity-achievements', JSON.stringify(achievements));
   }, [achievements]);
 
   const getCurrentLevel = useCallback(() => {
-    return SPACE_LEVELS.find(level => userStats.experience >= level.experienceRequired && 
-      (SPACE_LEVELS[level.level] ? userStats.experience < SPACE_LEVELS[level.level].experienceRequired : true)) || SPACE_LEVELS[0];
+    return LEVELS.find(level => userStats.experience >= level.experienceRequired && 
+      (LEVELS[level.level] ? userStats.experience < LEVELS[level.level].experienceRequired : true)) || LEVELS[0];
   }, [userStats.experience]);
 
   const addParticle = useCallback((x: number, y: number, type: ParticleEffect['type']) => {
@@ -96,13 +95,12 @@ export const useGamification = () => {
       
       return {
         ...prev,
-        spacePoints: prev.spacePoints + levelMultipliedPoints,
+        points: prev.points + levelMultipliedPoints,
         experience: prev.experience + (wasOnTime ? 15 : 10),
         currentStreak: newStreak,
         longestStreak: Math.max(prev.longestStreak, newStreak),
         lastActiveDate: today,
-        totalTasksCompleted: prev.totalTasksCompleted + 1,
-        bunnyHappiness: Math.min(100, prev.bunnyHappiness + (wasOnTime ? 10 : 5))
+        totalTasksCompleted: prev.totalTasksCompleted + 1
       };
     });
 

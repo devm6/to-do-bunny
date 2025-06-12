@@ -1,48 +1,43 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* To Do Bunny - Space Theme Design System */
+/* Simple Productivity App Design System */
 
 @layer base {
   :root {
-    /* Deep Space Background */
-    --background: 0 0% 0%; /* Pure black space */
-    --foreground: 220 15% 88%; /* Soft starlight */
+    /* Light neutral colors */
+    --background: 0 0% 100%; /* White background */
+    --foreground: 222.2 84% 4.9%; /* Dark text */
 
-    --card: 230 15% 12%; /* Deep space blue */
-    --card-foreground: 220 15% 88%;
+    --card: 0 0% 100%; /* White cards */
+    --card-foreground: 222.2 84% 4.9%;
 
-    --popover: 230 15% 12%;
-    --popover-foreground: 220 15% 88%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-    /* Cosmic Accent Colors */
-    --primary: 270 60% 70%; /* Cosmic purple */
-    --primary-foreground: 230 15% 10%;
+    /* Clean accent colors */
+    --primary: 221.2 83.2% 53.3%; /* Blue primary */
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 200 50% 40%; /* Nebula blue */
-    --secondary-foreground: 220 15% 88%;
+    --secondary: 210 40% 96%; /* Light gray */
+    --secondary-foreground: 222.2 84% 4.9%;
 
-    --muted: 230 15% 15%; /* Dark space */
-    --muted-foreground: 220 10% 65%; /* Muted starlight */
+    --muted: 210 40% 96%; /* Light gray */
+    --muted-foreground: 215.4 16.3% 46.9%; /* Medium gray */
 
-    --accent: 280 40% 80%; /* Bright cosmic purple */
-    --accent-foreground: 230 15% 10%;
+    --accent: 210 40% 96%; /* Light accent */
+    --accent-foreground: 222.2 84% 4.9%;
 
-    --destructive: 0 60% 70%; /* Bright red star */
-    --destructive-foreground: 220 15% 88%;
+    --destructive: 0 84.2% 60.2%; /* Red for delete */
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 230 15% 18%; /* Subtle space border */
-    --input: 230 15% 15%;
-    --ring: 270 60% 70%;
+    --border: 214.3 31.8% 91.4%; /* Light border */
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
 
-    --radius: 0.75rem;
-
-    /* Custom space bunny colors */
-    --bunny-pink: 320 60% 85%;
-    --bunny-happy: 280 60% 75%;
-    --bunny-sad: 240 30% 60%;
-    --timer-over: 30 80% 60%; /* Bright orange for over time */
+    --radius: 0.5rem;
   }
 }
 
@@ -53,39 +48,11 @@
 
   body {
     @apply bg-background text-foreground;
-    background-color: black;
-    background-image: 
-      radial-gradient(circle at 25% 75%, rgba(120, 60, 200, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 75% 25%, rgba(60, 120, 200, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 50% 50%, rgba(200, 100, 255, 0.03) 0%, transparent 70%);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 }
 
-/* Custom animations for space bunny and tasks */
-@keyframes bunny-happy {
-  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
-  25% { transform: translateY(-8px) scale(1.1) rotate(-5deg); }
-  50% { transform: translateY(-12px) scale(1.15) rotate(0deg); }
-  75% { transform: translateY(-8px) scale(1.1) rotate(5deg); }
-}
-
-@keyframes bunny-celebration {
-  0% { transform: scale(1) rotate(0deg); }
-  25% { transform: scale(1.3) rotate(-15deg); }
-  50% { transform: scale(1.4) rotate(15deg); }
-  75% { transform: scale(1.3) rotate(-10deg); }
-  100% { transform: scale(1) rotate(0deg); }
-}
-
-@keyframes bunny-sad {
-  0% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(3px) rotate(-3deg); }
-  50% { transform: translateY(6px) rotate(0deg); }
-  75% { transform: translateY(3px) rotate(3deg); }
-  100% { transform: translateY(0) rotate(0deg); }
-}
-
+/* Simple animations */
 @keyframes task-complete {
   0% { transform: scale(1); }
   50% { transform: scale(1.02); }
@@ -97,68 +64,6 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes starfield-twinkle {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
-}
-
-@keyframes particle-float {
-  0% { 
-    opacity: 1; 
-    transform: translateY(0) scale(1); 
-  }
-  100% { 
-    opacity: 0; 
-    transform: translateY(-100px) scale(0.5); 
-  }
-}
-
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0px) translateX(0px); }
-  25% { transform: translateY(-10px) translateX(5px); }
-  50% { transform: translateY(-5px) translateX(-5px); }
-  75% { transform: translateY(-15px) translateX(3px); }
-}
-
-@keyframes shooting-star {
-  0% { 
-    transform: translateX(-100vw) translateY(0px);
-    opacity: 0;
-  }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { 
-    transform: translateX(100vw) translateY(50px);
-    opacity: 0;
-  }
-}
-
-@keyframes twinkle {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
-}
-
-@keyframes nebula-pulse {
-  0%, 100% { opacity: 0.1; transform: scale(1); }
-  50% { opacity: 0.3; transform: scale(1.1); }
-}
-
-.bunny-happy {
-  animation: bunny-happy 0.8s ease-in-out, bunny-celebration 0.6s ease-in-out 0.2s;
-}
-
-.bunny-sad {
-  animation: bunny-sad 1s ease-in-out;
-}
-
-.bunny-celebration {
-  animation: bunny-celebration 1s ease-in-out;
-}
-
-.bunny-proud {
-  animation: bunny-proud 1.5s ease-in-out;
-}
-
 .task-complete {
   animation: task-complete 0.4s ease-in-out;
 }
@@ -167,11 +72,7 @@
   animation: gentle-fade-in 0.3s ease-out;
 }
 
-.starfield-twinkle {
-  animation: starfield-twinkle 2s ease-in-out infinite;
-}
-
-/* Custom scrollbar for space feel */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }

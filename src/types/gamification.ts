@@ -1,13 +1,12 @@
 
 export interface UserStats {
-  spacePoints: number;
+  points: number;
   currentStreak: number;
   longestStreak: number;
   level: number;
   experience: number;
   lastActiveDate: string;
   totalTasksCompleted: number;
-  bunnyHappiness: number;
 }
 
 export interface Achievement {
@@ -27,9 +26,7 @@ export interface ParticleEffect {
   timestamp: number;
 }
 
-export type BunnyMoodExtended = 'neutral' | 'happy' | 'sad' | 'excited' | 'focused' | 'proud' | 'sleepy';
-
-export interface SpaceLevel {
+export interface Level {
   level: number;
   title: string;
   experienceRequired: number;

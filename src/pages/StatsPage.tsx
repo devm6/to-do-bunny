@@ -2,10 +2,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Trophy, TrendingUp, Calendar, Zap } from 'lucide-react';
+import { ArrowLeft, Trophy, TrendingUp, CheckSquare, Zap } from 'lucide-react';
 import { useGamification } from '../hooks/useGamification';
 import StatsPanel from '../components/StatsPanel';
-import SpaceBackground from '../components/SpaceBackground';
 
 const StatsPage = () => {
   const navigate = useNavigate();
@@ -15,10 +14,8 @@ const StatsPage = () => {
   const totalAchievements = achievements.length;
 
   return (
-    <div className="min-h-screen bg-background relative">
-      <SpaceBackground />
-      
-      <div className="relative z-10 container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <header className="flex items-center justify-between mb-8">
           <Button
@@ -30,7 +27,7 @@ const StatsPage = () => {
             Back to Home
           </Button>
           <h1 className="text-3xl font-bold text-foreground">
-            Mission Statistics 📊
+            Progress Statistics
           </h1>
           <div></div>
         </header>
@@ -48,18 +45,18 @@ const StatsPage = () => {
               <div className="bg-card border border-border rounded-xl p-4 text-center">
                 <div className="text-2xl mb-2">🎯</div>
                 <div className="text-2xl font-bold text-primary">{userStats.totalTasksCompleted}</div>
-                <div className="text-xs text-muted-foreground">Missions Complete</div>
+                <div className="text-xs text-muted-foreground">Tasks Complete</div>
               </div>
               
               <div className="bg-card border border-border rounded-xl p-4 text-center">
                 <div className="text-2xl mb-2">⭐</div>
-                <div className="text-2xl font-bold text-primary">{userStats.spacePoints}</div>
-                <div className="text-xs text-muted-foreground">Space Credits</div>
+                <div className="text-2xl font-bold text-primary">{userStats.points}</div>
+                <div className="text-xs text-muted-foreground">Points</div>
               </div>
               
               <div className="bg-card border border-border rounded-xl p-4 text-center">
                 <div className="text-2xl mb-2">🔥</div>
-                <div className="text-2xl font-bold text-orange-400">{userStats.longestStreak}</div>
+                <div className="text-2xl font-bold text-orange-500">{userStats.longestStreak}</div>
                 <div className="text-xs text-muted-foreground">Best Streak</div>
               </div>
               
@@ -120,7 +117,7 @@ const StatsPage = () => {
               <h3 className="text-lg font-semibold text-foreground mb-4">Quick Actions</h3>
               <div className="flex flex-wrap gap-3">
                 <Button onClick={() => navigate('/dashboard')} className="flex items-center gap-2">
-                  <TrendingUp className="h-4 w-4" />
+                  <CheckSquare className="h-4 w-4" />
                   View Tasks
                 </Button>
                 <Button onClick={() => navigate('/timer')} variant="outline" className="flex items-center gap-2">

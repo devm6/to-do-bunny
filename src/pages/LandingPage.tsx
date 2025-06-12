@@ -2,8 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Rocket, Target, Trophy, Zap } from 'lucide-react';
-import SpaceBackground from '../components/SpaceBackground';
+import { CheckSquare, Target, Trophy, Zap } from 'lucide-react';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -11,40 +10,38 @@ const LandingPage = () => {
   const features = [
     {
       icon: <Target className="h-8 w-8" />,
-      title: 'Mission Control',
-      description: 'Organize your tasks like space missions with time targets and tracking'
+      title: 'Task Management',
+      description: 'Organize your tasks with time tracking and completion status'
     },
     {
       icon: <Trophy className="h-8 w-8" />,
-      title: 'Space Achievements',
-      description: 'Earn space credits, unlock achievements, and level up your astronaut rank'
+      title: 'Progress Tracking',
+      description: 'Earn points, track streaks, and level up your productivity'
     },
     {
       icon: <Zap className="h-8 w-8" />,
       title: 'Productivity Boost',
-      description: 'Stay motivated with your space bunny companion and streak tracking'
+      description: 'Stay motivated with achievements and progress visualization'
     },
     {
-      icon: <Rocket className="h-8 w-8" />,
+      icon: <CheckSquare className="h-8 w-8" />,
       title: 'Focus Timer',
-      description: 'Use the mission timer to stay focused and complete tasks efficiently'
+      description: 'Use built-in timer to stay focused and complete tasks efficiently'
     }
   ];
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      <SpaceBackground />
-      
-      <div className="relative z-10 container mx-auto px-4 py-16">
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-16">
         {/* Hero Section */}
         <div className="text-center mb-16">
-          <div className="text-6xl mb-6">🐰🚀</div>
+          <div className="text-6xl mb-6">✅</div>
           <h1 className="text-5xl font-bold text-foreground mb-6">
-            Space Productivity
+            Simple Productivity
           </h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Transform your productivity into an interstellar adventure! Complete missions, 
-            earn space credits, and explore the galaxy with your astronaut bunny companion.
+            A clean and simple way to manage your tasks, track your progress, 
+            and stay productive. No distractions, just pure focus.
           </p>
           <div className="flex gap-4 justify-center">
             <Button 
@@ -52,8 +49,8 @@ const LandingPage = () => {
               className="bg-primary hover:bg-primary/90 text-primary-foreground"
               onClick={() => navigate('/dashboard')}
             >
-              <Rocket className="mr-2 h-5 w-5" />
-              Launch Mission Control
+              <CheckSquare className="mr-2 h-5 w-5" />
+              Get Started
             </Button>
             <Button 
               variant="outline" 
@@ -68,7 +65,7 @@ const LandingPage = () => {
         {/* Features Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {features.map((feature, index) => (
-            <div key={index} className="bg-card border border-border rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+            <div key={index} className="bg-card border border-border rounded-xl p-6 text-center shadow-sm hover:shadow-md transition-shadow">
               <div className="text-primary mb-4 flex justify-center">
                 {feature.icon}
               </div>
@@ -83,19 +80,19 @@ const LandingPage = () => {
         </div>
 
         {/* Call to Action */}
-        <div className="text-center bg-card border border-border rounded-2xl p-8 shadow-lg">
+        <div className="text-center bg-card border border-border rounded-2xl p-8 shadow-sm">
           <h2 className="text-3xl font-bold text-foreground mb-4">
-            Ready for Your Space Mission?
+            Ready to Get Organized?
           </h2>
           <p className="text-muted-foreground mb-6">
-            Join thousands of space explorers who have transformed their productivity!
+            Join thousands of users who have transformed their productivity!
           </p>
           <Button 
             size="lg" 
             className="bg-primary hover:bg-primary/90"
             onClick={() => navigate('/dashboard')}
           >
-            Start Your Journey 🚀
+            Start Now
           </Button>
         </div>
       </div>

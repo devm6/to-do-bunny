@@ -10,13 +10,13 @@ const ParticleEffects: React.FC<ParticleEffectsProps> = ({ particles }) => {
   const getParticleContent = (type: ParticleEffect['type']) => {
     switch (type) {
       case 'completion':
-        return '✨';
+        return '✓';
       case 'points':
         return '+20';
       case 'streak':
         return '🔥';
       default:
-        return '⭐';
+        return '✓';
     }
   };
 
@@ -25,7 +25,7 @@ const ParticleEffects: React.FC<ParticleEffectsProps> = ({ particles }) => {
       {particles.map((particle) => (
         <div
           key={particle.id}
-          className="absolute animate-[particle-float_2s_ease-out_forwards] text-2xl font-bold"
+          className="absolute animate-[particle-float_2s_ease-out_forwards] text-2xl font-bold text-primary"
           style={{
             left: particle.x,
             top: particle.y,
