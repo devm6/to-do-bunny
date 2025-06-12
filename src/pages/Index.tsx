@@ -61,7 +61,8 @@ const Index = () => {
         <div className="flex justify-center gap-4 mb-8">
           <Button
             onClick={() => setShowTimer(true)}
-            className="bg-primary text-primary-foreground hover:bg-primary/90"
+            variant="outline"
+            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
           >
             <TimerIcon className="h-4 w-4 mr-2" />
             Timer
