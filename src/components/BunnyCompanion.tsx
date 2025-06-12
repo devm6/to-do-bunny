@@ -34,9 +34,9 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({ mood }) => {
   const getMoodText = () => {
     switch (mood) {
       case 'happy':
-        return 'Mission accomplished! 🚀';
+        return 'Mission accomplished! 💕';
       case 'sad':
-        return 'Took a bit longer on this mission... 🌌';
+        return 'Took a bit longer on this mission... 💙';
       default:
         return 'Ready for the next mission! ✨';
     }

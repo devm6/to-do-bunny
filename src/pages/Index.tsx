@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useTaskManager } from '../hooks/useTaskManager';
 import BunnyCompanion from '../components/BunnyCompanion';
@@ -37,9 +38,9 @@ const Index = () => {
   const counts = getTabCounts();
 
   const tabButtons = [
-    { key: 'focus' as const, label: "Current Mission", count: counts.focus, emoji: '🚀' },
+    { key: 'focus' as const, label: "Current Mission", count: counts.focus, emoji: '💖' },
     { key: 'completed' as const, label: 'Completed', count: counts.completed, emoji: '⭐' },
-    { key: 'pending' as const, label: 'Pending', count: counts.pending, emoji: '🌌' }
+    { key: 'pending' as const, label: 'Pending', count: counts.pending, emoji: '💫' }
   ];
 
   return (
