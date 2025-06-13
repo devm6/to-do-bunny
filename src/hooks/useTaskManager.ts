@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useCallback } from 'react';
 import { Task, BunnyMood, TimerState } from '../types/task';
 
@@ -30,14 +31,23 @@ export const useTaskManager = () => {
     }
   }, [showCarrotGain]);
 
-  // Timer effect
+  // Background timer effect - runs continuously regardless of UI state
   useEffect(() => {
     let interval: NodeJS.Timeout;
     
     if (timerState.isRunning && timerState.activeTaskId) {
       interval = setInterval(() => {
         setTimerState(prev => {
+          if (!prev.isRunning || !prev.activeTaskId) return prev;
+          
           const newElapsedTime = prev.elapsedTime + 1;
+          
+          // Update the task's time spent in real-time
+          setTasks(prevTasks => prevTasks.map(task => 
+            task.id === prev.activeTaskId 
+              ? { ...task, timeSpent: newElapsedTime }
+              : task
+          ));
           
           const activeTask = tasks.find(t => t.id === prev.activeTaskId);
           if (activeTask?.timeAllocation && newElapsedTime >= (activeTask.timeAllocation * 60) && !activeTask.isCompleted) {
@@ -149,7 +159,7 @@ export const useTaskManager = () => {
     if (timerState.activeTaskId && timerState.activeTaskId !== taskId) {
       setTasks(prev => prev.map(task => 
         task.id === timerState.activeTaskId ? 
-          { ...task, timeSpent: timerState.elapsedTime, isActive: false } : 
+          { ...task, isActive: false } : 
           task
       ));
     }
@@ -170,18 +180,18 @@ export const useTaskManager = () => {
   }, [timerState, tasks]);
 
   const pauseTimer = useCallback(() => {
-    if (timerState.activeTaskId) {
-      setTasks(prev => prev.map(task => 
-        task.id === timerState.activeTaskId ? 
-          { ...task, timeSpent: timerState.elapsedTime, isActive: false } : 
-          task
-      ));
-    }
-
     setTimerState(prev => ({
       ...prev,
       isRunning: false
     }));
+
+    if (timerState.activeTaskId) {
+      setTasks(prev => prev.map(task => 
+        task.id === timerState.activeTaskId ? 
+          { ...task, isActive: false } : 
+          task
+      ));
+    }
   }, [timerState]);
 
   const resetTimer = useCallback((taskId: string) => {

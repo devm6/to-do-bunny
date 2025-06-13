@@ -59,11 +59,14 @@ const TaskItem: React.FC<TaskItemProps> = ({
       )}
 
       <div className="flex items-center gap-3">
-        <Checkbox
-          checked={task.isCompleted}
-          onCheckedChange={() => onToggleComplete(task.id)}
-          className="data-[state=checked]:bg-primary data-[state=checked]:border-primary checkbox-complete"
-        />
+        {/* Checkbox for task completion */}
+        <div className="flex items-center">
+          <Checkbox
+            checked={task.isCompleted}
+            onCheckedChange={() => onToggleComplete(task.id)}
+            className="h-5 w-5 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+          />
+        </div>
         
         <div className="flex-1">
           <div className={`font-medium ${task.isCompleted ? 'line-through text-muted-foreground' : 'text-foreground'}`}>
