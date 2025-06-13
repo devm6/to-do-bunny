@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useTaskManager } from '../hooks/useTaskManager';
 import BunnyCompanion from '../components/BunnyCompanion';
@@ -8,7 +9,6 @@ import Stopwatch from '../components/Stopwatch';
 import FullscreenTimer from '../components/FullscreenTimer';
 import CarrotCounter from '../components/CarrotCounter';
 import Confetti from '../components/Confetti';
-import PookieBadges from '../components/PookieBadges';
 import SparklyBackground from '../components/SparklyBackground';
 import { Button } from '@/components/ui/button';
 import { Timer as TimerIcon, Clock } from 'lucide-react';
@@ -76,8 +76,6 @@ const Index = () => {
     count: counts.pending
   }];
 
-  const completedTasksCount = tasks.filter(t => t.status === 'completed').length;
-
   return (
     <div className="min-h-screen bg-background p-4 relative">
       {/* Sparkly animated background */}
@@ -111,9 +109,6 @@ const Index = () => {
             </p>
           </div>
         </header>
-
-        {/* Pookie Badges */}
-        <PookieBadges completedTasks={completedTasksCount} carrotCount={carrotCount} />
 
         {/* Timer and Stopwatch Buttons with pookie styling */}
         <div className="flex justify-center gap-4 mb-8">
