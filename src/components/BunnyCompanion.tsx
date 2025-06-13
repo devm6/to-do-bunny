@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BunnyMood } from '../types/task';
 
@@ -7,10 +8,36 @@ interface BunnyCompanionProps {
   onMoodChange?: (mood: BunnyMood) => void;
 }
 
+const motivationalQuotes = [
+  "Every small step counts on your journey! 🐰",
+  "You're doing amazing, keep hopping forward!",
+  "Believe in yourself, little bunny warrior!",
+  "Progress, not perfection, is the goal!",
+  "You've got this, one carrot at a time!",
+  "Small wins lead to big victories!",
+  "Keep bouncing back, that's your superpower!",
+  "Your effort today creates tomorrow's success!",
+  "Hop into your potential, you're unstoppable!",
+  "Every task completed is a victory dance!",
+  "Be the change you want to see in your burrow! 🏠",
+  "The journey of a thousand hops begins with a single bounce! 🦘",
+  "To be or not to be productive, that is the question... Choose to be! 🎭",
+  "May the focus be with you, young padawan! ⭐",
+  "Show me the progress! 💰",
+  "The early bunny catches the carrot! 🌅"
+];
+
 const BunnyCompanion: React.FC<BunnyCompanionProps> = ({
   mood
 }) => {
   const navigate = useNavigate();
+  const [randomQuote, setRandomQuote] = useState('');
+
+  useEffect(() => {
+    // Set a random quote when component mounts
+    const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
+    setRandomQuote(motivationalQuotes[randomIndex]);
+  }, []);
 
   const getBunnyClasses = () => {
     const baseClasses = "text-6xl transition-all duration-300 transform cursor-pointer";
@@ -72,6 +99,16 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({
             🐰
           </div>
         </div>
+        
+        {/* Random motivational quote */}
+        {!getMoodText() && randomQuote && (
+          <div className="text-sm text-muted-foreground font-medium animate-fade-in mb-2" style={{
+            animationDelay: '0.5s'
+          }}>
+            {randomQuote}
+          </div>
+        )}
+        
         {getMoodText() && (
           <div className="text-sm text-muted-foreground font-medium animate-fade-in" style={{
             animationDelay: '0.2s'
