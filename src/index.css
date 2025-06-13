@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -61,7 +61,7 @@
       radial-gradient(circle at 25% 75%, rgba(120, 60, 200, 0.1) 0%, transparent 50%),
       radial-gradient(circle at 75% 25%, rgba(60, 120, 200, 0.08) 0%, transparent 50%),
       radial-gradient(circle at 50% 50%, rgba(200, 100, 255, 0.03) 0%, transparent 70%);
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Inter', sans-serif;
   }
 }
 
@@ -120,6 +120,27 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes checkbox-complete {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+@keyframes checkbox-check {
+  0% { 
+    opacity: 0;
+    transform: scale(0.3) rotate(-45deg);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.2) rotate(0deg);
+  }
+  100% { 
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
 .bunny-happy {
   animation: bunny-happy 0.8s ease-in-out, bunny-celebration 0.6s ease-in-out 0.2s;
 }
@@ -146,6 +167,14 @@
 
 .starfield-twinkle {
   animation: starfield-twinkle 2s ease-in-out infinite;
+}
+
+.checkbox-complete {
+  animation: checkbox-complete 0.4s ease-in-out;
+}
+
+.checkbox-check {
+  animation: checkbox-check 0.3s ease-out;
 }
 
 /* Custom scrollbar for space feel */

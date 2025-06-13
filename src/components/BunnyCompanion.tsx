@@ -10,24 +10,13 @@ interface BunnyCompanionProps {
 const BunnyCompanion: React.FC<BunnyCompanionProps> = ({
   mood
 }) => {
-  const getBunnyEmoji = () => {
-    switch (mood) {
-      case 'happy':
-        return '🐰';
-      case 'sad':
-        return '🐰';
-      default:
-        return '🐰';
-    }
-  };
-
   const getBunnyClasses = () => {
     const baseClasses = "text-6xl transition-all duration-300 transform cursor-pointer";
     switch (mood) {
       case 'happy':
-        return `${baseClasses} bunny-happy scale-110 animate-bounce`;
+        return `${baseClasses} bunny-happy scale-110`;
       case 'sad':
-        return `${baseClasses} bunny-sad opacity-75 animate-pulse`;
+        return `${baseClasses} bunny-sad opacity-75`;
       default:
         return `${baseClasses} hover:scale-105 bunny-float`;
     }
@@ -70,7 +59,7 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({
           <div className={getBunnyClasses()} style={{
             filter: mood === 'happy' ? 'hue-rotate(280deg) saturate(1.3) brightness(1.2) drop-shadow(0 0 10px rgba(200, 100, 255, 0.5))' : mood === 'sad' ? 'grayscale(0.4) brightness(0.7)' : 'drop-shadow(0 0 5px rgba(120, 60, 200, 0.3))'
           }}>
-            {getBunnyEmoji()}
+            🐰
           </div>
         </div>
         <div className="text-sm text-muted-foreground font-medium animate-fade-in" style={{
