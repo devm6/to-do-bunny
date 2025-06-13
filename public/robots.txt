@@ -10,5 +10,9 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+
 User-agent: *
 Allow: /
+
+Sitemap: https://to-do-bunny.vercel.app/
+
