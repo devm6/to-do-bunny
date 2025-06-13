@@ -53,51 +53,66 @@ const Index = () => {
 
   const tabButtons = [{
     key: 'focus' as const,
-    label: "Current Mission",
+    label: "Pookie's Current Mission 💕",
     count: counts.focus
   }, {
     key: 'completed' as const,
-    label: 'Completed',
+    label: 'Pookie Victories ✨',
     count: counts.completed
   }, {
     key: 'pending' as const,
-    label: 'Pending',
+    label: 'Future Pookie Goals 🌸',
     count: counts.pending
   }];
 
   return (
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-6xl mx-auto">
-        {/* Header with Carrot Counter */}
+        {/* Header with enhanced pookie vibes */}
         <header className="text-center mb-8 relative">
           <div className="absolute top-0 right-0">
             <CarrotCounter count={carrotCount} />
           </div>
           <div className="gentle-fade-in">
-            <h1 className="text-4xl font-bold text-foreground mb-2">
-              To Do Bunny 🐰
+            <h1 className="text-4xl font-bold text-foreground mb-2" style={{
+              background: 'linear-gradient(45deg, #ff69b4, #ff1493, #da70d6)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              textShadow: '0 0 20px rgba(255, 105, 180, 0.5)'
+            }}>
+              To Do Bunny 🐰💕
             </h1>
-            <p className="text-muted-foreground"></p>
+            <p className="text-pink-200 text-lg" style={{
+              textShadow: '0 0 10px rgba(255, 192, 203, 0.5)'
+            }}>
+              Where productivity meets pookie vibes ✨
+            </p>
           </div>
         </header>
 
-        {/* Timer and Stopwatch Buttons */}
+        {/* Timer and Stopwatch Buttons with pookie styling */}
         <div className="flex justify-center gap-4 mb-8">
           <Button 
             onClick={() => setShowTimer(true)} 
             variant="outline" 
-            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+            className="border-pink-300/50 text-pink-200 hover:bg-pink-500/20 hover:text-pink-100 hover:border-pink-300 transition-all duration-300"
+            style={{
+              boxShadow: '0 0 15px rgba(255, 105, 180, 0.3)'
+            }}
           >
             <TimerIcon className="h-4 w-4 mr-2" />
-            Timer
+            Pookie Timer 💖
           </Button>
           <Button 
             onClick={() => setShowStopwatch(true)} 
             variant="outline" 
-            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+            className="border-purple-300/50 text-purple-200 hover:bg-purple-500/20 hover:text-purple-100 hover:border-purple-300 transition-all duration-300"
+            style={{
+              boxShadow: '0 0 15px rgba(138, 43, 226, 0.3)'
+            }}
           >
             <Clock className="h-4 w-4 mr-2" />
-            Stopwatch
+            Pookie Stopwatch ⏰
           </Button>
         </div>
 
@@ -113,9 +128,11 @@ const Index = () => {
           <TaskInput onAddTask={addTask} />
         </div>
 
-        {/* Tab Navigation */}
+        {/* Tab Navigation with enhanced pookie styling */}
         <div className="mb-6">
-          <div className="flex gap-2 bg-muted p-1 rounded-xl w-fit">
+          <div className="flex gap-2 bg-gradient-to-r from-pink-900/20 via-purple-900/20 to-pink-900/20 p-1 rounded-xl w-fit border border-pink-300/20" style={{
+            boxShadow: '0 0 20px rgba(255, 105, 180, 0.2)'
+          }}>
             {tabButtons.map(tab => (
               <Button 
                 key={tab.key}
@@ -123,16 +140,19 @@ const Index = () => {
                 onClick={() => setActiveTab(tab.key)}
                 className={`rounded-lg px-4 py-2 font-medium transition-all duration-200 ${
                   activeTab === tab.key 
-                    ? 'bg-primary text-primary-foreground shadow-sm' 
-                    : 'hover:bg-background text-muted-foreground hover:text-foreground'
+                    ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-sm' 
+                    : 'hover:bg-pink-500/10 text-pink-200 hover:text-pink-100'
                 }`}
+                style={{
+                  textShadow: activeTab === tab.key ? '0 0 10px rgba(255, 255, 255, 0.5)' : 'none'
+                }}
               >
                 {tab.label}
                 {tab.count > 0 && (
                   <span className={`ml-2 px-2 py-0.5 text-xs rounded-full ${
                     activeTab === tab.key 
-                      ? 'bg-primary-foreground/20 text-primary-foreground' 
-                      : 'bg-primary/20 text-primary'
+                      ? 'bg-white/20 text-white' 
+                      : 'bg-pink-500/20 text-pink-200'
                   }`}>
                     {tab.count}
                   </span>
@@ -142,8 +162,10 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Task List */}
-        <div className="bg-card border border-border rounded-2xl p-6 shadow-lg">
+        {/* Task List with enhanced pookie container */}
+        <div className="bg-gradient-to-br from-pink-900/10 via-card to-purple-900/10 border border-pink-300/20 rounded-2xl p-6 shadow-lg" style={{
+          boxShadow: '0 0 30px rgba(255, 105, 180, 0.15)'
+        }}>
           <TaskList 
             tasks={tasks}
             activeList={activeTab}
