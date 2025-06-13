@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useTaskManager } from '../hooks/useTaskManager';
 import BunnyCompanion from '../components/BunnyCompanion';
@@ -6,6 +5,7 @@ import TaskInput from '../components/TaskInput';
 import TaskList from '../components/TaskList';
 import Timer from '../components/Timer';
 import Stopwatch from '../components/Stopwatch';
+import CarrotCounter from '../components/CarrotCounter';
 import { Button } from '@/components/ui/button';
 import { Timer as TimerIcon, Clock } from 'lucide-react';
 
@@ -13,6 +13,8 @@ const Index = () => {
   const {
     tasks,
     bunnyMood,
+    carrotCount,
+    showCarrotGain,
     timerState,
     addTask,
     toggleComplete,
@@ -54,8 +56,11 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <header className="text-center mb-8">
+        {/* Header with Carrot Counter */}
+        <header className="text-center mb-8 relative">
+          <div className="absolute top-0 right-0">
+            <CarrotCounter count={carrotCount} />
+          </div>
           <div className="gentle-fade-in">
             <h1 className="text-4xl font-bold text-foreground mb-2">
               To Do Bunny 🐰
@@ -131,6 +136,7 @@ const Index = () => {
             tasks={tasks}
             activeList={activeTab}
             timerState={timerState}
+            showCarrotGain={showCarrotGain}
             onToggleComplete={toggleComplete}
             onStartTimer={startTimer}
             onPauseTimer={pauseTimer}

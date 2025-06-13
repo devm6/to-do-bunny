@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Task } from '../types/task';
 import { Button } from '@/components/ui/button';
@@ -9,6 +8,7 @@ interface TaskItemProps {
   task: Task;
   isTimerActive: boolean;
   elapsedTime: number;
+  showCarrotGain: boolean;
   onToggleComplete: (taskId: string) => void;
   onStartTimer: (taskId: string) => void;
   onPauseTimer: () => void;
@@ -21,6 +21,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
   task,
   isTimerActive,
   elapsedTime,
+  showCarrotGain,
   onToggleComplete,
   onStartTimer,
   onPauseTimer,
@@ -44,9 +45,16 @@ const TaskItem: React.FC<TaskItemProps> = ({
   };
 
   return (
-    <div className={`bg-card border border-border rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 gentle-fade-in ${
+    <div className={`bg-card border border-border rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 gentle-fade-in relative ${
       isTimerActive ? 'ring-2 ring-primary/50 bg-primary/5' : ''
     } ${task.isCompleted ? 'opacity-75' : ''}`}>
+      {/* Carrot gain message */}
+      {showCarrotGain && (
+        <div className="absolute -top-2 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-medium carrot-gain-message animate-bounce">
+          You gained a carrot! 🥕
+        </div>
+      )}
+
       <div className="flex items-center gap-3">
         <Checkbox
           checked={task.isCompleted}

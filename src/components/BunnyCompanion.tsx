@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BunnyMood } from '../types/task';
@@ -32,7 +31,7 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({
       case 'sad':
         return 'Took a bit longer on this mission...';
       default:
-        return 'Ready for the next mission!';
+        return '';
     }
   };
 
@@ -73,16 +72,13 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({
             🐰
           </div>
         </div>
-        <div className="text-sm text-muted-foreground font-medium animate-fade-in" style={{
-          animationDelay: '0.2s'
-        }}>
-          {getMoodText()}
-        </div>
-        <div className="mt-2 text-xs text-muted-foreground opacity-75 animate-fade-in" style={{
-          animationDelay: '0.4s'
-        }}>
-          Space companion
-        </div>
+        {getMoodText() && (
+          <div className="text-sm text-muted-foreground font-medium animate-fade-in" style={{
+            animationDelay: '0.2s'
+          }}>
+            {getMoodText()}
+          </div>
+        )}
       </div>
     </div>
   );

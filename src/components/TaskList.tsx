@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Task, TimerState } from '../types/task';
 import TaskItem from './TaskItem';
@@ -7,6 +6,7 @@ interface TaskListProps {
   tasks: Task[];
   activeList: 'focus' | 'completed' | 'pending';
   timerState: TimerState;
+  showCarrotGain: string | null;
   onToggleComplete: (taskId: string) => void;
   onStartTimer: (taskId: string) => void;
   onPauseTimer: () => void;
@@ -19,6 +19,7 @@ const TaskList: React.FC<TaskListProps> = ({
   tasks,
   activeList,
   timerState,
+  showCarrotGain,
   onToggleComplete,
   onStartTimer,
   onPauseTimer,
@@ -72,6 +73,7 @@ const TaskList: React.FC<TaskListProps> = ({
             task={task}
             isTimerActive={timerState.activeTaskId === task.id && timerState.isRunning}
             elapsedTime={timerState.activeTaskId === task.id ? timerState.elapsedTime : task.timeSpent}
+            showCarrotGain={showCarrotGain === task.id}
             onToggleComplete={onToggleComplete}
             onStartTimer={onStartTimer}
             onPauseTimer={onPauseTimer}

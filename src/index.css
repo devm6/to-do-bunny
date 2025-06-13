@@ -141,6 +141,27 @@
   }
 }
 
+@keyframes carrot-count-animate {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes carrot-gain-message {
+  0% { 
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+  }
+  50% { 
+    opacity: 1;
+    transform: translateY(-5px) scale(1.1);
+  }
+  100% { 
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .bunny-happy {
   animation: bunny-happy 0.8s ease-in-out, bunny-celebration 0.6s ease-in-out 0.2s;
 }
@@ -175,6 +196,14 @@
 
 .checkbox-check {
   animation: checkbox-check 0.3s ease-out;
+}
+
+.carrot-count-animate {
+  animation: carrot-count-animate 0.4s ease-in-out;
+}
+
+.carrot-gain-message {
+  animation: carrot-gain-message 0.6s ease-out;
 }
 
 /* Custom scrollbar for space feel */

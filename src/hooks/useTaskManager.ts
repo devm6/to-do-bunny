@@ -1,15 +1,34 @@
-
 import { useState, useEffect, useCallback } from 'react';
 import { Task, BunnyMood, TimerState } from '../types/task';
 
 export const useTaskManager = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [bunnyMood, setBunnyMood] = useState<BunnyMood>('neutral');
+  const [carrotCount, setCarrotCount] = useState<number>(() => {
+    const saved = localStorage.getItem('carrotCount');
+    return saved ? parseInt(saved, 10) : 0;
+  });
+  const [showCarrotGain, setShowCarrotGain] = useState<string | null>(null);
   const [timerState, setTimerState] = useState<TimerState>({
     activeTaskId: null,
     isRunning: false,
     elapsedTime: 0
   });
+
+  // Save carrot count to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('carrotCount', carrotCount.toString());
+  }, [carrotCount]);
+
+  // Auto-hide carrot gain message after 3 seconds
+  useEffect(() => {
+    if (showCarrotGain) {
+      const timeout = setTimeout(() => {
+        setShowCarrotGain(null);
+      }, 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [showCarrotGain]);
 
   // Timer effect
   useEffect(() => {
@@ -20,10 +39,8 @@ export const useTaskManager = () => {
         setTimerState(prev => {
           const newElapsedTime = prev.elapsedTime + 1;
           
-          // Check if timer has completed and move to pending if not checked off
           const activeTask = tasks.find(t => t.id === prev.activeTaskId);
           if (activeTask?.timeAllocation && newElapsedTime >= (activeTask.timeAllocation * 60) && !activeTask.isCompleted) {
-            // Timer completed but task not checked off - move to pending
             setTasks(prevTasks => prevTasks.map(task => 
               task.id === prev.activeTaskId 
                 ? { ...task, status: 'pending', timeSpent: newElapsedTime, isActive: false }
@@ -57,7 +74,7 @@ export const useTaskManager = () => {
     if (bunnyMood !== 'neutral') {
       const timeout = setTimeout(() => {
         setBunnyMood('neutral');
-      }, 3000); // Return to neutral after 3 seconds
+      }, 3000);
 
       return () => clearTimeout(timeout);
     }
@@ -84,10 +101,8 @@ export const useTaskManager = () => {
         const newCompleted = !wasCompleted;
         
         if (newCompleted && task.status === 'focus') {
-          // Task is being completed from focus list
           const finalTimeSpent = timerState.activeTaskId === taskId ? timerState.elapsedTime : task.timeSpent;
           
-          // Stop timer if this task is active
           if (timerState.activeTaskId === taskId) {
             setTimerState(prev => ({
               ...prev,
@@ -97,7 +112,9 @@ export const useTaskManager = () => {
             }));
           }
 
-          // Determine bunny mood and new status
+          setCarrotCount(prev => prev + 1);
+          setShowCarrotGain(taskId);
+
           let newStatus: 'completed' | 'pending' = 'completed';
           if (task.timeAllocation && finalTimeSpent > (task.timeAllocation * 60)) {
             newStatus = 'pending';
@@ -114,7 +131,8 @@ export const useTaskManager = () => {
             completedAt: new Date()
           };
         } else if (!newCompleted && (task.status === 'completed' || task.status === 'pending')) {
-          // Task is being uncompleted from completed/pending list
+          setCarrotCount(prev => Math.max(0, prev - 1));
+          
           return {
             ...task,
             isCompleted: false,
@@ -128,7 +146,6 @@ export const useTaskManager = () => {
   }, [timerState]);
 
   const startTimer = useCallback((taskId: string) => {
-    // Stop any currently running timer
     if (timerState.activeTaskId && timerState.activeTaskId !== taskId) {
       setTasks(prev => prev.map(task => 
         task.id === timerState.activeTaskId ? 
@@ -137,7 +154,6 @@ export const useTaskManager = () => {
       ));
     }
 
-    // Get current time spent for this task
     const task = tasks.find(t => t.id === taskId);
     const currentTimeSpent = task?.timeSpent || 0;
 
@@ -207,6 +223,8 @@ export const useTaskManager = () => {
   return {
     tasks,
     bunnyMood,
+    carrotCount,
+    showCarrotGain,
     timerState,
     addTask,
     toggleComplete,
