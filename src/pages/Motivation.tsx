@@ -5,6 +5,12 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 
 const motivationalQuotes = [
+  "You're absolutely pookie-tastic! Keep going! 💕",
+  "My little pookie is crushing these tasks! 🥰",
+  "Being productive never looked so pookie! ✨",
+  "You're the most adorable task-master, pookie! 🎀",
+  "Pookie power activated! Nothing can stop you! 💪",
+  "Look at my little pookie being all productive! So proud! 🌸",
   "Every small step counts on your journey! 🐰",
   "You're doing amazing, keep hopping forward!",
   "Believe in yourself, little bunny warrior!",
@@ -62,14 +68,14 @@ const Motivation = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4">
+    <div className="min-h-screen bg-gradient-to-br from-pink-900/10 via-background to-purple-900/10 p-4">
       <div className="max-w-4xl mx-auto">
         {/* Back button */}
         <div className="mb-8">
           <Button
             onClick={() => navigate('/')}
             variant="outline"
-            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+            className="border-pink-300/50 text-pink-200 hover:bg-pink-500/20 hover:text-pink-100"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Tasks
@@ -78,44 +84,60 @@ const Motivation = () => {
 
         {/* Main content */}
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-8">
-            Motivation Corner
+          <h1 className="text-4xl font-bold text-pink-200 mb-8" style={{
+            textShadow: '0 0 20px rgba(255, 192, 203, 0.5)'
+          }}>
+            Pookie Motivation Corner 💕
           </h1>
 
-          {/* Clickable Bunny */}
+          {/* Clickable Bunny with bow */}
           <div className="mb-8 flex justify-center">
             <div 
-              className="bg-black border border-border rounded-2xl p-8 shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="bg-gradient-to-br from-pink-900/30 via-black to-purple-900/30 border border-pink-300/40 rounded-2xl p-8 shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               onClick={handleBunnyClick}
             >
-              {/* Space stars background */}
-              <div className="absolute inset-0 opacity-30 pointer-events-none">
-                <div className="absolute top-2 left-4 w-1 h-1 bg-accent rounded-full starfield-twinkle animate-ping" style={{ animationDelay: '0s' }}></div>
-                <div className="absolute top-8 right-6 w-0.5 h-0.5 bg-primary rounded-full starfield-twinkle animate-pulse" style={{ animationDelay: '0.7s' }}></div>
-                <div className="absolute bottom-6 left-8 w-0.5 h-0.5 bg-accent rounded-full starfield-twinkle animate-ping" style={{ animationDelay: '1.2s' }}></div>
-                <div className="absolute bottom-3 right-4 w-1 h-1 bg-secondary rounded-full starfield-twinkle animate-pulse" style={{ animationDelay: '1.8s' }}></div>
+              {/* Sparkly stars background */}
+              <div className="absolute inset-0 opacity-40 pointer-events-none">
+                <div className="absolute top-2 left-4 w-1 h-1 bg-pink-300 rounded-full starfield-twinkle animate-ping" style={{ animationDelay: '0s' }}></div>
+                <div className="absolute top-8 right-6 w-0.5 h-0.5 bg-purple-300 rounded-full starfield-twinkle animate-pulse" style={{ animationDelay: '0.7s' }}></div>
+                <div className="absolute bottom-6 left-8 w-0.5 h-0.5 bg-pink-200 rounded-full starfield-twinkle animate-ping" style={{ animationDelay: '1.2s' }}></div>
+                <div className="absolute bottom-3 right-4 w-1 h-1 bg-purple-200 rounded-full starfield-twinkle animate-pulse" style={{ animationDelay: '1.8s' }}></div>
               </div>
               
               <div className="relative z-10">
-                <div 
-                  className="text-8xl transition-all duration-300 transform bunny-float hover:scale-110"
-                  style={{
-                    filter: 'drop-shadow(0 0 15px rgba(120, 60, 200, 0.5))'
-                  }}
-                >
-                  🐰
+                <div className="relative inline-block">
+                  <div 
+                    className="text-8xl transition-all duration-300 transform bunny-float hover:scale-110"
+                    style={{
+                      filter: 'drop-shadow(0 0 20px rgba(255, 192, 203, 0.8))'
+                    }}
+                  >
+                    🐰
+                  </div>
+                  {/* Pink bow on bunny's head */}
+                  <div 
+                    className="absolute -top-4 left-1/2 transform -translate-x-1/2 text-4xl animate-bounce"
+                    style={{
+                      filter: 'drop-shadow(0 0 15px rgba(255, 105, 180, 1))',
+                      animationDelay: '0.3s'
+                    }}
+                  >
+                    🎀
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Motivational Quote */}
-          <div className="bg-card border border-border rounded-2xl p-6 shadow-lg max-w-2xl mx-auto">
-            <p className="text-xl text-foreground font-medium animate-fade-in">
+          <div className="bg-gradient-to-br from-pink-900/20 via-card to-purple-900/20 border border-pink-300/30 rounded-2xl p-6 shadow-lg max-w-2xl mx-auto">
+            <p className="text-xl text-pink-100 font-medium animate-fade-in" style={{
+              textShadow: '0 0 10px rgba(255, 192, 203, 0.5)'
+            }}>
               {motivationalQuotes[currentQuoteIndex]}
             </p>
-            <p className="text-sm text-muted-foreground mt-4">
-              Click the bunny for more motivation!
+            <p className="text-sm text-pink-200/70 mt-4">
+              Click the pookie bunny for more motivation! 🎀
             </p>
           </div>
         </div>

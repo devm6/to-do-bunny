@@ -9,6 +9,11 @@ interface BunnyCompanionProps {
 }
 
 const motivationalQuotes = [
+  "You're absolutely pookie-tastic! Keep going! 💕",
+  "My little pookie is crushing these tasks! 🥰",
+  "Being productive never looked so pookie! ✨",
+  "You're the most adorable task-master, pookie! 🎀",
+  "Pookie power activated! Nothing can stop you! 💪",
   "Every small step counts on your journey! 🐰",
   "You're doing amazing, keep hopping forward!",
   "Believe in yourself, little bunny warrior!",
@@ -54,9 +59,9 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({
   const getMoodText = () => {
     switch (mood) {
       case 'happy':
-        return 'Mission accomplished!';
+        return 'Mission accomplished, pookie! 💕';
       case 'sad':
-        return 'Took a bit longer on this mission...';
+        return 'Took a bit longer on this mission, but you\'re still my pookie! 🥺';
       default:
         return '';
     }
@@ -67,51 +72,69 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({
   };
 
   return (
-    <div className="bg-black border border-border rounded-2xl p-6 shadow-lg relative overflow-hidden animate-fade-in hover:shadow-xl transition-shadow duration-300">
-      {/* Space stars background with enhanced animations */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-2 left-4 w-1 h-1 bg-accent rounded-full starfield-twinkle animate-ping" style={{
+    <div className="bg-gradient-to-br from-pink-900/20 via-black to-purple-900/20 border border-pink-300/30 rounded-2xl p-6 shadow-lg relative overflow-hidden animate-fade-in hover:shadow-xl transition-shadow duration-300">
+      {/* Sparkly stars background with pink/purple theme */}
+      <div className="absolute inset-0 opacity-40">
+        <div className="absolute top-2 left-4 w-1 h-1 bg-pink-300 rounded-full starfield-twinkle animate-ping" style={{
           animationDelay: '0s'
         }}></div>
-        <div className="absolute top-8 right-6 w-0.5 h-0.5 bg-primary rounded-full starfield-twinkle animate-pulse" style={{
+        <div className="absolute top-8 right-6 w-0.5 h-0.5 bg-purple-300 rounded-full starfield-twinkle animate-pulse" style={{
           animationDelay: '0.7s'
         }}></div>
-        <div className="absolute bottom-6 left-8 w-0.5 h-0.5 bg-accent rounded-full starfield-twinkle animate-ping" style={{
+        <div className="absolute bottom-6 left-8 w-0.5 h-0.5 bg-pink-200 rounded-full starfield-twinkle animate-ping" style={{
           animationDelay: '1.2s'
         }}></div>
-        <div className="absolute bottom-3 right-4 w-1 h-1 bg-secondary rounded-full starfield-twinkle animate-pulse" style={{
+        <div className="absolute bottom-3 right-4 w-1 h-1 bg-purple-200 rounded-full starfield-twinkle animate-pulse" style={{
           animationDelay: '1.8s'
         }}></div>
-        <div className="absolute top-1/2 left-1/3 w-0.5 h-0.5 bg-primary rounded-full starfield-twinkle animate-ping" style={{
+        <div className="absolute top-1/2 left-1/3 w-0.5 h-0.5 bg-pink-300 rounded-full starfield-twinkle animate-ping" style={{
           animationDelay: '2.5s'
+        }}></div>
+        <div className="absolute top-1/4 right-1/4 w-0.5 h-0.5 bg-purple-300 rounded-full starfield-twinkle animate-pulse" style={{
+          animationDelay: '3s'
         }}></div>
       </div>
       
       <div className="text-center relative z-10">
-        <div className="mb-3">
-          <div 
-            className={getBunnyClasses()} 
-            onClick={handleBunnyClick}
-            style={{
-              filter: mood === 'happy' ? 'hue-rotate(280deg) saturate(1.3) brightness(1.2) drop-shadow(0 0 10px rgba(200, 100, 255, 0.5))' : mood === 'sad' ? 'grayscale(0.4) brightness(0.7)' : 'drop-shadow(0 0 5px rgba(120, 60, 200, 0.3))'
-            }}
-          >
-            🐰
+        <div className="mb-3 relative">
+          {/* Bunny with bow */}
+          <div className="relative inline-block">
+            <div 
+              className={getBunnyClasses()} 
+              onClick={handleBunnyClick}
+              style={{
+                filter: mood === 'happy' ? 'hue-rotate(300deg) saturate(1.5) brightness(1.3) drop-shadow(0 0 15px rgba(255, 192, 203, 0.8))' : mood === 'sad' ? 'grayscale(0.2) brightness(0.8) drop-shadow(0 0 10px rgba(255, 192, 203, 0.4))' : 'drop-shadow(0 0 10px rgba(255, 192, 203, 0.6))'
+              }}
+            >
+              🐰
+            </div>
+            {/* Pink bow on bunny's head */}
+            <div 
+              className="absolute -top-2 left-1/2 transform -translate-x-1/2 text-2xl animate-bounce"
+              style={{
+                filter: 'drop-shadow(0 0 8px rgba(255, 105, 180, 0.8))',
+                animationDelay: '0.3s'
+              }}
+            >
+              🎀
+            </div>
           </div>
         </div>
         
-        {/* Random motivational quote */}
+        {/* Random motivational quote with pookie vibes */}
         {!getMoodText() && randomQuote && (
-          <div className="text-sm text-muted-foreground font-medium animate-fade-in mb-2" style={{
-            animationDelay: '0.5s'
+          <div className="text-sm text-pink-200 font-medium animate-fade-in mb-2" style={{
+            animationDelay: '0.5s',
+            textShadow: '0 0 10px rgba(255, 192, 203, 0.5)'
           }}>
             {randomQuote}
           </div>
         )}
         
         {getMoodText() && (
-          <div className="text-sm text-muted-foreground font-medium animate-fade-in" style={{
-            animationDelay: '0.2s'
+          <div className="text-sm text-pink-200 font-medium animate-fade-in" style={{
+            animationDelay: '0.2s',
+            textShadow: '0 0 10px rgba(255, 192, 203, 0.5)'
           }}>
             {getMoodText()}
           </div>
