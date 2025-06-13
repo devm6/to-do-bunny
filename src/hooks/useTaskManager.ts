@@ -17,17 +17,40 @@ export const useTaskManager = () => {
     
     if (timerState.isRunning && timerState.activeTaskId) {
       interval = setInterval(() => {
-        setTimerState(prev => ({
-          ...prev,
-          elapsedTime: prev.elapsedTime + 1
-        }));
+        setTimerState(prev => {
+          const newElapsedTime = prev.elapsedTime + 1;
+          
+          // Check if timer has completed and move to pending if not checked off
+          const activeTask = tasks.find(t => t.id === prev.activeTaskId);
+          if (activeTask?.timeAllocation && newElapsedTime >= (activeTask.timeAllocation * 60) && !activeTask.isCompleted) {
+            // Timer completed but task not checked off - move to pending
+            setTasks(prevTasks => prevTasks.map(task => 
+              task.id === prev.activeTaskId 
+                ? { ...task, status: 'pending', timeSpent: newElapsedTime, isActive: false }
+                : task
+            ));
+            
+            setBunnyMood('sad');
+            
+            return {
+              activeTaskId: null,
+              isRunning: false,
+              elapsedTime: 0
+            };
+          }
+          
+          return {
+            ...prev,
+            elapsedTime: newElapsedTime
+          };
+        });
       }, 1000);
     }
 
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [timerState.isRunning, timerState.activeTaskId]);
+  }, [timerState.isRunning, timerState.activeTaskId, tasks]);
 
   // Bunny mood reset effect
   useEffect(() => {

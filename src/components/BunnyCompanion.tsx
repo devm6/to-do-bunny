@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BunnyMood } from '../types/task';
 
 interface BunnyCompanionProps {
@@ -10,6 +11,8 @@ interface BunnyCompanionProps {
 const BunnyCompanion: React.FC<BunnyCompanionProps> = ({
   mood
 }) => {
+  const navigate = useNavigate();
+
   const getBunnyClasses = () => {
     const baseClasses = "text-6xl transition-all duration-300 transform cursor-pointer";
     switch (mood) {
@@ -31,6 +34,10 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({
       default:
         return 'Ready for the next mission!';
     }
+  };
+
+  const handleBunnyClick = () => {
+    navigate('/motivation');
   };
 
   return (
@@ -56,9 +63,13 @@ const BunnyCompanion: React.FC<BunnyCompanionProps> = ({
       
       <div className="text-center relative z-10">
         <div className="mb-3">
-          <div className={getBunnyClasses()} style={{
-            filter: mood === 'happy' ? 'hue-rotate(280deg) saturate(1.3) brightness(1.2) drop-shadow(0 0 10px rgba(200, 100, 255, 0.5))' : mood === 'sad' ? 'grayscale(0.4) brightness(0.7)' : 'drop-shadow(0 0 5px rgba(120, 60, 200, 0.3))'
-          }}>
+          <div 
+            className={getBunnyClasses()} 
+            onClick={handleBunnyClick}
+            style={{
+              filter: mood === 'happy' ? 'hue-rotate(280deg) saturate(1.3) brightness(1.2) drop-shadow(0 0 10px rgba(200, 100, 255, 0.5))' : mood === 'sad' ? 'grayscale(0.4) brightness(0.7)' : 'drop-shadow(0 0 5px rgba(120, 60, 200, 0.3))'
+            }}
+          >
             🐰
           </div>
         </div>

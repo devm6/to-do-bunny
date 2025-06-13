@@ -51,7 +51,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
         <Checkbox
           checked={task.isCompleted}
           onCheckedChange={() => onToggleComplete(task.id)}
-          className="data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+          className="data-[state=checked]:bg-primary data-[state=checked]:border-primary checkbox-complete"
         />
         
         <div className="flex-1">
