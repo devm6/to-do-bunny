@@ -27,7 +27,7 @@ const TaskInput: React.FC<TaskInputProps> = ({ onAddTask }) => {
       <div className="space-y-4">
         <div>
           <label className="text-sm font-medium text-muted-foreground mb-2 block">
-            What cozy quest awaits? ✨
+            What quest awaits?
           </label>
           <Input
             type="text"

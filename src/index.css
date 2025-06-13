@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -59,7 +61,7 @@
       radial-gradient(circle at 25% 75%, rgba(120, 60, 200, 0.1) 0%, transparent 50%),
       radial-gradient(circle at 75% 25%, rgba(60, 120, 200, 0.08) 0%, transparent 50%),
       radial-gradient(circle at 50% 50%, rgba(200, 100, 255, 0.03) 0%, transparent 70%);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Amatic SC', cursive;
   }
 }
 
@@ -92,6 +94,16 @@
   50% { transform: translateY(-6px) rotate(2deg); }
 }
 
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes starfield-twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
 @keyframes task-complete {
   0% { transform: scale(1); }
   50% { transform: scale(1.02); }
@@ -103,9 +115,9 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes starfield-twinkle {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
+@keyframes fade-in {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .bunny-happy {
@@ -117,7 +129,7 @@
 }
 
 .bunny-float {
-  animation: bunny-float 3s ease-in-out infinite;
+  animation: bunny-float 3s ease-in-out infinite, gentle-bounce 2s ease-in-out infinite;
 }
 
 .task-complete {
@@ -126,6 +138,10 @@
 
 .gentle-fade-in {
   animation: gentle-fade-in 0.3s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
 }
 
 .starfield-twinkle {

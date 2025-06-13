@@ -38,9 +38,9 @@ const Index = () => {
   const counts = getTabCounts();
 
   const tabButtons = [
-    { key: 'focus' as const, label: "Current Mission", count: counts.focus, emoji: '💖' },
-    { key: 'completed' as const, label: 'Completed', count: counts.completed, emoji: '⭐' },
-    { key: 'pending' as const, label: 'Pending', count: counts.pending, emoji: '💫' }
+    { key: 'focus' as const, label: "Current Mission", count: counts.focus },
+    { key: 'completed' as const, label: 'Completed', count: counts.completed },
+    { key: 'pending' as const, label: 'Pending', count: counts.pending }
   ];
 
   return (
@@ -49,7 +49,7 @@ const Index = () => {
         {/* Header */}
         <header className="text-center mb-8">
           <div className="gentle-fade-in">
-            <h1 className="text-4xl font-bold text-foreground mb-2">
+            <h1 className="text-4xl font-bold text-foreground mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
               To Do Bunny 🐰
             </h1>
             <p className="text-muted-foreground">
@@ -104,7 +104,6 @@ const Index = () => {
                     : 'hover:bg-background text-muted-foreground hover:text-foreground'
                 }`}
               >
-                <span className="mr-2">{tab.emoji}</span>
                 {tab.label}
                 {tab.count > 0 && (
                   <span className={`ml-2 px-2 py-0.5 text-xs rounded-full ${
