@@ -1,8 +1,9 @@
+
 import React from 'react';
 import { Task } from '../types/task';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Play, Pause, RotateCcw, Edit, Trash2 } from 'lucide-react';
+import { Play, Pause, RotateCcw, Edit, Trash2, Maximize } from 'lucide-react';
 
 interface TaskItemProps {
   task: Task;
@@ -15,6 +16,7 @@ interface TaskItemProps {
   onResetTimer: (taskId: string) => void;
   onDelete: (taskId: string) => void;
   onEdit: (taskId: string, newText: string, newTimeAllocation?: number) => void;
+  onFullscreen?: (taskId: string) => void;
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({
@@ -27,7 +29,8 @@ const TaskItem: React.FC<TaskItemProps> = ({
   onPauseTimer,
   onResetTimer,
   onDelete,
-  onEdit
+  onEdit,
+  onFullscreen
 }) => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -100,6 +103,19 @@ const TaskItem: React.FC<TaskItemProps> = ({
                 className="h-8 w-8 p-0 hover:bg-primary/20 text-primary"
               >
                 <Pause className="h-4 w-4" />
+              </Button>
+            )}
+            
+            {/* Fullscreen button - only show when timer is active */}
+            {isTimerActive && onFullscreen && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onFullscreen(task.id)}
+                className="h-8 w-8 p-0 hover:bg-accent text-muted-foreground"
+                title="Fullscreen Timer"
+              >
+                <Maximize className="h-4 w-4" />
               </Button>
             )}
             

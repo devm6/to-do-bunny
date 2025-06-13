@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Task, TimerState } from '../types/task';
 import TaskItem from './TaskItem';
@@ -13,6 +14,7 @@ interface TaskListProps {
   onResetTimer: (taskId: string) => void;
   onDelete: (taskId: string) => void;
   onEdit: (taskId: string, newText: string, newTimeAllocation?: number) => void;
+  onFullscreen?: (taskId: string) => void;
 }
 
 const TaskList: React.FC<TaskListProps> = ({
@@ -25,7 +27,8 @@ const TaskList: React.FC<TaskListProps> = ({
   onPauseTimer,
   onResetTimer,
   onDelete,
-  onEdit
+  onEdit,
+  onFullscreen
 }) => {
   const filteredTasks = tasks.filter(task => task.status === activeList);
 
@@ -80,6 +83,7 @@ const TaskList: React.FC<TaskListProps> = ({
             onResetTimer={onResetTimer}
             onDelete={onDelete}
             onEdit={onEdit}
+            onFullscreen={onFullscreen}
           />
         </div>
       ))}

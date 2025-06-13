@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useTaskManager } from '../hooks/useTaskManager';
 import BunnyCompanion from '../components/BunnyCompanion';
@@ -5,6 +6,7 @@ import TaskInput from '../components/TaskInput';
 import TaskList from '../components/TaskList';
 import Timer from '../components/Timer';
 import Stopwatch from '../components/Stopwatch';
+import FullscreenTimer from '../components/FullscreenTimer';
 import CarrotCounter from '../components/CarrotCounter';
 import { Button } from '@/components/ui/button';
 import { Timer as TimerIcon, Clock } from 'lucide-react';
@@ -28,6 +30,15 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState<'focus' | 'completed' | 'pending'>('focus');
   const [showTimer, setShowTimer] = useState(false);
   const [showStopwatch, setShowStopwatch] = useState(false);
+  const [showFullscreenTimer, setShowFullscreenTimer] = useState(false);
+
+  const handleFullscreen = (taskId: string) => {
+    setShowFullscreenTimer(true);
+  };
+
+  const handleCloseFullscreen = () => {
+    setShowFullscreenTimer(false);
+  };
 
   const getTabCounts = () => {
     return {
@@ -38,6 +49,7 @@ const Index = () => {
   };
 
   const counts = getTabCounts();
+  const activeTask = tasks.find(task => task.id === timerState.activeTaskId);
 
   const tabButtons = [{
     key: 'focus' as const,
@@ -143,6 +155,7 @@ const Index = () => {
             onResetTimer={resetTimer}
             onDelete={deleteTask}
             onEdit={editTask}
+            onFullscreen={handleFullscreen}
           />
         </div>
       </div>
@@ -152,6 +165,18 @@ const Index = () => {
 
       {/* Stopwatch Modal */}
       {showStopwatch && <Stopwatch onClose={() => setShowStopwatch(false)} />}
+
+      {/* Fullscreen Timer */}
+      {showFullscreenTimer && activeTask && (
+        <FullscreenTimer
+          task={activeTask}
+          timerState={timerState}
+          onClose={handleCloseFullscreen}
+          onPauseTimer={pauseTimer}
+          onStartTimer={startTimer}
+          onResetTimer={resetTimer}
+        />
+      )}
     </div>
   );
 };
