@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useTaskManager } from '../hooks/useTaskManager';
 import BunnyCompanion from '../components/BunnyCompanion';
@@ -8,6 +7,9 @@ import Timer from '../components/Timer';
 import Stopwatch from '../components/Stopwatch';
 import FullscreenTimer from '../components/FullscreenTimer';
 import CarrotCounter from '../components/CarrotCounter';
+import Confetti from '../components/Confetti';
+import PookieBadges from '../components/PookieBadges';
+import SparklyBackground from '../components/SparklyBackground';
 import { Button } from '@/components/ui/button';
 import { Timer as TimerIcon, Clock } from 'lucide-react';
 
@@ -31,6 +33,7 @@ const Index = () => {
   const [showTimer, setShowTimer] = useState(false);
   const [showStopwatch, setShowStopwatch] = useState(false);
   const [showFullscreenTimer, setShowFullscreenTimer] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const handleFullscreen = (taskId: string) => {
     setShowFullscreenTimer(true);
@@ -38,6 +41,14 @@ const Index = () => {
 
   const handleCloseFullscreen = () => {
     setShowFullscreenTimer(false);
+  };
+
+  const handleToggleComplete = (taskId: string) => {
+    const task = tasks.find(t => t.id === taskId);
+    if (task && !task.isCompleted) {
+      setShowConfetti(true);
+    }
+    toggleComplete(taskId);
   };
 
   const getTabCounts = () => {
@@ -65,9 +76,20 @@ const Index = () => {
     count: counts.pending
   }];
 
+  const completedTasksCount = tasks.filter(t => t.status === 'completed').length;
+
   return (
-    <div className="min-h-screen bg-background p-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-background p-4 relative">
+      {/* Sparkly animated background */}
+      <SparklyBackground />
+      
+      {/* Confetti effect */}
+      <Confetti 
+        isActive={showConfetti} 
+        onComplete={() => setShowConfetti(false)} 
+      />
+      
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header with enhanced pookie vibes */}
         <header className="text-center mb-8 relative">
           <div className="absolute top-0 right-0">
@@ -89,6 +111,9 @@ const Index = () => {
             </p>
           </div>
         </header>
+
+        {/* Pookie Badges */}
+        <PookieBadges completedTasks={completedTasksCount} carrotCount={carrotCount} />
 
         {/* Timer and Stopwatch Buttons with pookie styling */}
         <div className="flex justify-center gap-4 mb-8">
@@ -171,7 +196,7 @@ const Index = () => {
             activeList={activeTab}
             timerState={timerState}
             showCarrotGain={showCarrotGain}
-            onToggleComplete={toggleComplete}
+            onToggleComplete={handleToggleComplete}
             onStartTimer={startTimer}
             onPauseTimer={pauseTimer}
             onResetTimer={resetTimer}

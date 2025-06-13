@@ -104,6 +104,19 @@
   50% { opacity: 1; transform: scale(1.2); }
 }
 
+@keyframes sparkle-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+  25% { transform: translateY(-10px) rotate(90deg); opacity: 1; }
+  50% { transform: translateY(-15px) rotate(180deg); opacity: 0.8; }
+  75% { transform: translateY(-10px) rotate(270deg); opacity: 1; }
+}
+
+@keyframes gentle-drift {
+  0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
+  33% { transform: translateX(10px) translateY(-5px) rotate(120deg); }
+  66% { transform: translateX(-8px) translateY(-10px) rotate(240deg); }
+}
+
 @keyframes task-complete {
   0% { transform: scale(1); }
   50% { transform: scale(1.02); }
@@ -188,6 +201,10 @@
 
 .starfield-twinkle {
   animation: starfield-twinkle 2s ease-in-out infinite;
+}
+
+.sparkle-twinkle {
+  animation: sparkle-float 4s ease-in-out infinite;
 }
 
 .checkbox-complete {
