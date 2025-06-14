@@ -1,8 +1,9 @@
+
 import React from 'react';
 import { Task } from '../types/task';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Play, Pause, RotateCcw, Edit, Trash2, Maximize, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Play, Pause, RotateCcw, Edit, Trash2, Maximize } from 'lucide-react';
 
 interface TaskItemProps {
   task: Task;
@@ -16,7 +17,6 @@ interface TaskItemProps {
   onDelete: (taskId: string) => void;
   onEdit: (taskId: string, newText: string, newTimeAllocation?: number) => void;
   onFullscreen?: (taskId: string) => void;
-  onMoveTask?: (taskId: string, newStatus: 'focus' | 'pending') => void;
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({
@@ -30,8 +30,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
   onResetTimer,
   onDelete,
   onEdit,
-  onFullscreen,
-  onMoveTask
+  onFullscreen
 }) => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -87,33 +86,6 @@ const TaskItem: React.FC<TaskItemProps> = ({
             </span>
           </div>
         </div>
-
-        {/* Move task buttons */}
-        {onMoveTask && !task.isCompleted && (
-          <div className="flex items-center gap-1">
-            {task.status === 'focus' ? (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => onMoveTask(task.id, 'pending')}
-                className="h-8 w-8 p-0 hover:bg-purple-100 text-purple-600"
-                title="Move to Future Goals"
-              >
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            ) : (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => onMoveTask(task.id, 'focus')}
-                className="h-8 w-8 p-0 hover:bg-pink-100 text-pink-600"
-                title="Move to Current Mission"
-              >
-                <ArrowLeft className="h-4 w-4" />
-              </Button>
-            )}
-          </div>
-        )}
 
         {task.status === 'focus' && !task.isCompleted && (
           <div className="flex items-center gap-1">

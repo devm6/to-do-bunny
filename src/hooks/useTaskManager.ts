@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useCallback } from 'react';
 import { Task, BunnyMood, TimerState } from '../types/task';
 
@@ -89,7 +90,7 @@ export const useTaskManager = () => {
     }
   }, [bunnyMood]);
 
-  const addTask = useCallback((text: string, timeAllocation?: number, targetStatus: 'focus' | 'pending' = 'focus') => {
+  const addTask = useCallback((text: string, timeAllocation?: number) => {
     const newTask: Task = {
       id: Date.now().toString(),
       text,
@@ -97,16 +98,10 @@ export const useTaskManager = () => {
       isCompleted: false,
       timeSpent: 0,
       isActive: false,
-      status: targetStatus
+      status: 'focus'
     };
 
     setTasks(prev => [...prev, newTask]);
-  }, []);
-
-  const moveTask = useCallback((taskId: string, newStatus: 'focus' | 'pending') => {
-    setTasks(prev => prev.map(task => 
-      task.id === taskId ? { ...task, status: newStatus } : task
-    ));
   }, []);
 
   const toggleComplete = useCallback((taskId: string) => {
@@ -242,7 +237,6 @@ export const useTaskManager = () => {
     showCarrotGain,
     timerState,
     addTask,
-    moveTask,
     toggleComplete,
     startTimer,
     pauseTimer,
