@@ -1,17 +1,19 @@
-
 import React, { useState } from 'react';
 import { useTaskManager } from '../hooks/useTaskManager';
+import { useAuth } from '../hooks/useAuth';
 import BunnyCompanion from '../components/BunnyCompanion';
 import TaskInput from '../components/TaskInput';
 import TaskList from '../components/TaskList';
 import Timer from '../components/Timer';
 import Stopwatch from '../components/Stopwatch';
 import FullscreenTimer from '../components/FullscreenTimer';
+import SignInModal from '../components/auth/SignInModal';
+import CalendarView from '../components/calendar/CalendarView';
 import CarrotCounter from '../components/CarrotCounter';
 import Confetti from '../components/Confetti';
 import SparklyBackground from '../components/SparklyBackground';
 import { Button } from '@/components/ui/button';
-import { Timer as TimerIcon, Clock } from 'lucide-react';
+import { Timer as TimerIcon, Clock, Calendar, User, LogOut } from 'lucide-react';
 
 const Index = () => {
   const {
@@ -21,6 +23,7 @@ const Index = () => {
     showCarrotGain,
     timerState,
     addTask,
+    moveTask,
     toggleComplete,
     startTimer,
     pauseTimer,
@@ -29,10 +32,14 @@ const Index = () => {
     editTask
   } = useTaskManager();
 
+  const { user, signIn, signOut, isAuthenticated } = useAuth();
+
   const [activeTab, setActiveTab] = useState<'focus' | 'completed' | 'pending'>('focus');
   const [showTimer, setShowTimer] = useState(false);
   const [showStopwatch, setShowStopwatch] = useState(false);
   const [showFullscreenTimer, setShowFullscreenTimer] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
 
   const handleFullscreen = (taskId: string) => {
@@ -90,9 +97,33 @@ const Index = () => {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header with enhanced pookie vibes */}
         <header className="text-center mb-8 relative">
-          <div className="absolute top-0 right-0">
+          <div className="absolute top-0 right-0 flex items-center gap-4">
             <CarrotCounter count={carrotCount} />
+            {isAuthenticated ? (
+              <div className="flex items-center gap-2">
+                <span className="text-pink-200 text-sm">Hi, {user?.username}! 💕</span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={signOut}
+                  className="text-pink-200 hover:bg-pink-500/20"
+                >
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              </div>
+            ) : (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowSignInModal(true)}
+                className="text-pink-200 hover:bg-pink-500/20"
+              >
+                <User className="h-4 w-4 mr-2" />
+                Sign In
+              </Button>
+            )}
           </div>
+          
           <div className="gentle-fade-in">
             <h1 className="text-4xl font-bold text-foreground mb-2" style={{
               background: 'linear-gradient(45deg, #ff69b4, #ff1493, #da70d6)',
@@ -110,8 +141,8 @@ const Index = () => {
           </div>
         </header>
 
-        {/* Timer and Stopwatch Buttons with pookie styling */}
-        <div className="flex justify-center gap-4 mb-8">
+        {/* Enhanced buttons with Calendar */}
+        <div className="flex justify-center gap-4 mb-8 flex-wrap">
           <Button 
             onClick={() => setShowTimer(true)} 
             variant="outline" 
@@ -133,6 +164,17 @@ const Index = () => {
           >
             <Clock className="h-4 w-4 mr-2" />
             Pookie Stopwatch ⏰
+          </Button>
+          <Button 
+            onClick={() => setShowCalendar(true)} 
+            variant="outline" 
+            className="border-pink-300/50 text-pink-200 hover:bg-pink-500/20 hover:text-pink-100 hover:border-pink-300 transition-all duration-300"
+            style={{
+              boxShadow: '0 0 15px rgba(255, 105, 180, 0.3)'
+            }}
+          >
+            <Calendar className="h-4 w-4 mr-2" />
+            Calendar View 📅
           </Button>
         </div>
 
@@ -198,15 +240,22 @@ const Index = () => {
             onDelete={deleteTask}
             onEdit={editTask}
             onFullscreen={handleFullscreen}
+            onMoveTask={moveTask}
           />
         </div>
       </div>
 
-      {/* Timer Modal */}
+      {/* Modals */}
       {showTimer && <Timer onClose={() => setShowTimer(false)} />}
-
-      {/* Stopwatch Modal */}
       {showStopwatch && <Stopwatch onClose={() => setShowStopwatch(false)} />}
+      {showCalendar && <CalendarView tasks={tasks} onClose={() => setShowCalendar(false)} />}
+      {showSignInModal && (
+        <SignInModal
+          isOpen={showSignInModal}
+          onClose={() => setShowSignInModal(false)}
+          onSignIn={signIn}
+        />
+      )}
 
       {/* Fullscreen Timer */}
       {showFullscreenTimer && activeTask && (
