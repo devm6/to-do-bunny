@@ -5,47 +5,47 @@
 @tailwind components;
 @tailwind utilities;
 
-/* To Do Bunny - Enhanced Space Theme Design System */
+/* To Do Bunny - Space Theme Design System */
 
 @layer base {
   :root {
-    /* Softer Deep Space Background */
-    --background: 0 0% 2%; /* Slightly lighter than pure black */
-    --foreground: 220 15% 85%; /* Softer starlight */
+    /* Deep Space Background */
+    --background: 0 0% 0%; /* Pure black space */
+    --foreground: 220 15% 88%; /* Soft starlight */
 
-    --card: 230 15% 8%; /* Softer deep space blue */
-    --card-foreground: 220 15% 85%;
+    --card: 230 15% 12%; /* Deep space blue */
+    --card-foreground: 220 15% 88%;
 
-    --popover: 230 15% 8%;
-    --popover-foreground: 220 15% 85%;
+    --popover: 230 15% 12%;
+    --popover-foreground: 220 15% 88%;
 
-    /* Gentler Cosmic Accent Colors */
-    --primary: 270 50% 65%; /* Softer cosmic purple */
+    /* Cosmic Accent Colors */
+    --primary: 270 60% 70%; /* Cosmic purple */
     --primary-foreground: 230 15% 10%;
 
-    --secondary: 200 40% 35%; /* Gentler nebula blue */
-    --secondary-foreground: 220 15% 85%;
+    --secondary: 200 50% 40%; /* Nebula blue */
+    --secondary-foreground: 220 15% 88%;
 
-    --muted: 230 15% 12%; /* Softer dark space */
-    --muted-foreground: 220 10% 60%; /* Gentler muted starlight */
+    --muted: 230 15% 15%; /* Dark space */
+    --muted-foreground: 220 10% 65%; /* Muted starlight */
 
-    --accent: 280 30% 75%; /* Softer cosmic purple */
+    --accent: 280 40% 80%; /* Bright cosmic purple */
     --accent-foreground: 230 15% 10%;
 
-    --destructive: 0 50% 65%; /* Softer red star */
-    --destructive-foreground: 220 15% 85%;
+    --destructive: 0 60% 70%; /* Bright red star */
+    --destructive-foreground: 220 15% 88%;
 
-    --border: 230 15% 15%; /* Softer space border */
-    --input: 230 15% 12%;
-    --ring: 270 50% 65%;
+    --border: 230 15% 18%; /* Subtle space border */
+    --input: 230 15% 15%;
+    --ring: 270 60% 70%;
 
     --radius: 0.75rem;
 
     /* Custom space bunny colors */
-    --bunny-pink: 320 50% 80%;
-    --bunny-happy: 280 50% 70%;
-    --bunny-sad: 240 25% 55%;
-    --timer-over: 30 70% 55%; /* Softer orange for over time */
+    --bunny-pink: 320 60% 85%;
+    --bunny-happy: 280 60% 75%;
+    --bunny-sad: 240 30% 60%;
+    --timer-over: 30 80% 60%; /* Bright orange for over time */
   }
 }
 
@@ -56,97 +56,97 @@
 
   body {
     @apply bg-background text-foreground;
-    background-color: #050505;
+    background-color: black;
     background-image: 
-      radial-gradient(circle at 25% 75%, rgba(120, 60, 200, 0.06) 0%, transparent 60%),
-      radial-gradient(circle at 75% 25%, rgba(60, 120, 200, 0.04) 0%, transparent 60%),
-      radial-gradient(circle at 50% 50%, rgba(200, 100, 255, 0.02) 0%, transparent 80%);
+      radial-gradient(circle at 25% 75%, rgba(120, 60, 200, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 25%, rgba(60, 120, 200, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(200, 100, 255, 0.03) 0%, transparent 70%);
     font-family: 'Inter', sans-serif;
   }
 }
 
-/* Gentler animations for space bunny and tasks */
+/* Custom animations for space bunny and tasks */
 @keyframes bunny-happy {
   0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
-  25% { transform: translateY(-6px) scale(1.05) rotate(-3deg); }
-  50% { transform: translateY(-8px) scale(1.08) rotate(0deg); }
-  75% { transform: translateY(-6px) scale(1.05) rotate(3deg); }
+  25% { transform: translateY(-8px) scale(1.1) rotate(-5deg); }
+  50% { transform: translateY(-12px) scale(1.15) rotate(0deg); }
+  75% { transform: translateY(-8px) scale(1.1) rotate(5deg); }
 }
 
 @keyframes bunny-celebration {
   0% { transform: scale(1) rotate(0deg); }
-  25% { transform: scale(1.1) rotate(-5deg); }
-  50% { transform: scale(1.15) rotate(5deg); }
-  75% { transform: scale(1.1) rotate(-3deg); }
+  25% { transform: scale(1.2) rotate(-10deg); }
+  50% { transform: scale(1.3) rotate(10deg); }
+  75% { transform: scale(1.2) rotate(-5deg); }
   100% { transform: scale(1) rotate(0deg); }
 }
 
 @keyframes bunny-sad {
   0% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(2px) rotate(-2deg); }
-  50% { transform: translateY(4px) rotate(0deg); }
-  75% { transform: translateY(2px) rotate(2deg); }
+  25% { transform: translateY(3px) rotate(-3deg); }
+  50% { transform: translateY(6px) rotate(0deg); }
+  75% { transform: translateY(3px) rotate(3deg); }
   100% { transform: translateY(0) rotate(0deg); }
 }
 
 @keyframes bunny-float {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-4px) rotate(1deg); }
+  50% { transform: translateY(-6px) rotate(2deg); }
 }
 
 @keyframes gentle-bounce {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-2px); }
+  50% { transform: translateY(-4px); }
 }
 
 @keyframes starfield-twinkle {
-  0%, 100% { opacity: 0.2; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.1); }
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
 
 @keyframes sparkle-float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.2; }
-  25% { transform: translateY(-6px) rotate(45deg); opacity: 0.6; }
-  50% { transform: translateY(-8px) rotate(90deg); opacity: 0.4; }
-  75% { transform: translateY(-6px) rotate(135deg); opacity: 0.6; }
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+  25% { transform: translateY(-10px) rotate(90deg); opacity: 1; }
+  50% { transform: translateY(-15px) rotate(180deg); opacity: 0.8; }
+  75% { transform: translateY(-10px) rotate(270deg); opacity: 1; }
 }
 
 @keyframes gentle-drift {
   0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
-  33% { transform: translateX(6px) translateY(-3px) rotate(60deg); }
-  66% { transform: translateX(-4px) translateY(-6px) rotate(120deg); }
+  33% { transform: translateX(10px) translateY(-5px) rotate(120deg); }
+  66% { transform: translateX(-8px) translateY(-10px) rotate(240deg); }
 }
 
 @keyframes task-complete {
   0% { transform: scale(1); }
-  50% { transform: scale(1.01); }
+  50% { transform: scale(1.02); }
   100% { transform: scale(1); }
 }
 
 @keyframes gentle-fade-in {
-  0% { opacity: 0; transform: translateY(6px); }
+  0% { opacity: 0; transform: translateY(10px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fade-in {
-  0% { opacity: 0; transform: translateY(6px); }
+  0% { opacity: 0; transform: translateY(10px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes checkbox-complete {
   0% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+  50% { transform: scale(1.3); }
   100% { transform: scale(1); }
 }
 
 @keyframes checkbox-check {
   0% { 
     opacity: 0;
-    transform: scale(0.5) rotate(-45deg);
+    transform: scale(0.3) rotate(-45deg);
   }
   50% { 
     opacity: 1;
-    transform: scale(1.1) rotate(0deg);
+    transform: scale(1.2) rotate(0deg);
   }
   100% { 
     opacity: 1;
@@ -156,18 +156,18 @@
 
 @keyframes carrot-count-animate {
   0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+  50% { transform: scale(1.2); }
   100% { transform: scale(1); }
 }
 
 @keyframes carrot-gain-message {
   0% { 
     opacity: 0;
-    transform: translateY(6px) scale(0.9);
+    transform: translateY(10px) scale(0.8);
   }
   50% { 
     opacity: 1;
-    transform: translateY(-3px) scale(1.05);
+    transform: translateY(-5px) scale(1.1);
   }
   100% { 
     opacity: 1;
@@ -176,66 +176,66 @@
 }
 
 .bunny-happy {
-  animation: bunny-happy 0.6s ease-in-out, bunny-celebration 0.5s ease-in-out 0.1s;
+  animation: bunny-happy 0.8s ease-in-out, bunny-celebration 0.6s ease-in-out 0.2s;
 }
 
 .bunny-sad {
-  animation: bunny-sad 0.8s ease-in-out;
+  animation: bunny-sad 1s ease-in-out;
 }
 
 .bunny-float {
-  animation: bunny-float 4s ease-in-out infinite, gentle-bounce 3s ease-in-out infinite;
+  animation: bunny-float 3s ease-in-out infinite, gentle-bounce 2s ease-in-out infinite;
 }
 
 .task-complete {
-  animation: task-complete 0.3s ease-in-out;
+  animation: task-complete 0.4s ease-in-out;
 }
 
 .gentle-fade-in {
-  animation: gentle-fade-in 0.4s ease-out;
+  animation: gentle-fade-in 0.3s ease-out;
 }
 
 .animate-fade-in {
-  animation: fade-in 0.4s ease-out;
+  animation: fade-in 0.5s ease-out;
 }
 
 .starfield-twinkle {
-  animation: starfield-twinkle 3s ease-in-out infinite;
+  animation: starfield-twinkle 2s ease-in-out infinite;
 }
 
 .sparkle-twinkle {
-  animation: sparkle-float 6s ease-in-out infinite;
+  animation: sparkle-float 4s ease-in-out infinite;
 }
 
 .checkbox-complete {
-  animation: checkbox-complete 0.3s ease-in-out;
+  animation: checkbox-complete 0.4s ease-in-out;
 }
 
 .checkbox-check {
-  animation: checkbox-check 0.25s ease-out;
+  animation: checkbox-check 0.3s ease-out;
 }
 
 .carrot-count-animate {
-  animation: carrot-count-animate 0.3s ease-in-out;
+  animation: carrot-count-animate 0.4s ease-in-out;
 }
 
 .carrot-gain-message {
-  animation: carrot-gain-message 0.5s ease-out;
+  animation: carrot-gain-message 0.6s ease-out;
 }
 
-/* Enhanced gentler scrollbar */
+/* Custom scrollbar for space feel */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
   background: hsl(var(--muted));
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: hsl(var(--border));
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {

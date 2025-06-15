@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Task, TimerState } from '../types/task';
 import TaskItem from './TaskItem';
@@ -14,8 +13,8 @@ interface TaskListProps {
   onResetTimer: (taskId: string) => void;
   onDelete: (taskId: string) => void;
   onEdit: (taskId: string, newText: string, newTimeAllocation?: number) => void;
-  onMove?: (taskId: string, newStatus: 'focus' | 'pending') => void;
   onFullscreen?: (taskId: string) => void;
+  onMoveTask?: (taskId: string, newStatus: 'focus' | 'pending') => void;
 }
 
 const TaskList: React.FC<TaskListProps> = ({
@@ -29,8 +28,8 @@ const TaskList: React.FC<TaskListProps> = ({
   onResetTimer,
   onDelete,
   onEdit,
-  onMove,
-  onFullscreen
+  onFullscreen,
+  onMoveTask
 }) => {
   const filteredTasks = tasks.filter(task => task.status === activeList);
 
@@ -48,8 +47,8 @@ const TaskList: React.FC<TaskListProps> = ({
         };
       case 'pending':
         return {
-          title: "Future Goals await! 💙",
-          subtitle: "Tasks for later or that took longer appear here"
+          title: "No pending tasks right now 💙",
+          subtitle: "Tasks that took a bit longer appear here"
         };
       default:
         return { title: "", subtitle: "" };
@@ -85,8 +84,8 @@ const TaskList: React.FC<TaskListProps> = ({
             onResetTimer={onResetTimer}
             onDelete={onDelete}
             onEdit={onEdit}
-            onMove={onMove}
             onFullscreen={onFullscreen}
+            onMoveTask={onMoveTask}
           />
         </div>
       ))}

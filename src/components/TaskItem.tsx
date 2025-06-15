@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Task } from '../types/task';
 import { Button } from '@/components/ui/button';
@@ -16,8 +15,8 @@ interface TaskItemProps {
   onResetTimer: (taskId: string) => void;
   onDelete: (taskId: string) => void;
   onEdit: (taskId: string, newText: string, newTimeAllocation?: number) => void;
-  onMove?: (taskId: string, newStatus: 'focus' | 'pending') => void;
   onFullscreen?: (taskId: string) => void;
+  onMoveTask?: (taskId: string, newStatus: 'focus' | 'pending') => void;
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({
@@ -31,34 +30,22 @@ const TaskItem: React.FC<TaskItemProps> = ({
   onResetTimer,
   onDelete,
   onEdit,
-  onMove,
-  onFullscreen
+  onFullscreen,
+  onMoveTask
 }) => {
   const formatTime = (seconds: number) => {
-    const hours = Math.floor(seconds / 3600);
-    const mins = Math.floor((seconds % 3600) / 60);
+    const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    
-    if (hours > 0) {
-      return `${hours}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const isOverTime = task.timeAllocation && elapsedTime > (task.timeAllocation * 3600);
+  const isOverTime = task.timeAllocation && elapsedTime > (task.timeAllocation * 60);
   const timeDisplay = isTimerActive ? elapsedTime : task.timeSpent;
 
   const getTimerColor = () => {
     if (isOverTime) return 'text-orange-400';
     if (isTimerActive) return 'text-primary';
     return 'text-muted-foreground';
-  };
-
-  const formatTimeAllocation = (hours: number) => {
-    if (hours >= 1) {
-      return hours % 1 === 0 ? `${hours}h` : `${hours}h`;
-    }
-    return `${Math.round(hours * 60)}m`;
   };
 
   return (
@@ -90,7 +77,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
           <div className="flex items-center gap-4 mt-1">
             {task.timeAllocation && (
               <span className="text-xs text-muted-foreground">
-                Target: {formatTimeAllocation(task.timeAllocation)}
+                Target: {task.timeAllocation}m
               </span>
             )}
             
@@ -100,6 +87,33 @@ const TaskItem: React.FC<TaskItemProps> = ({
             </span>
           </div>
         </div>
+
+        {/* Move task buttons */}
+        {onMoveTask && !task.isCompleted && (
+          <div className="flex items-center gap-1">
+            {task.status === 'focus' ? (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onMoveTask(task.id, 'pending')}
+                className="h-8 w-8 p-0 hover:bg-purple-100 text-purple-600"
+                title="Move to Future Goals"
+              >
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            ) : (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onMoveTask(task.id, 'focus')}
+                className="h-8 w-8 p-0 hover:bg-pink-100 text-pink-600"
+                title="Move to Current Mission"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
+        )}
 
         {task.status === 'focus' && !task.isCompleted && (
           <div className="flex items-center gap-1">
@@ -148,40 +162,15 @@ const TaskItem: React.FC<TaskItemProps> = ({
         )}
 
         <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          {/* Move task buttons */}
-          {onMove && task.status === 'focus' && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onMove(task.id, 'pending')}
-              className="h-8 w-8 p-0 hover:bg-accent text-muted-foreground"
-              title="Move to Future Goals"
-            >
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-          )}
-          
-          {onMove && task.status === 'pending' && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onMove(task.id, 'focus')}
-              className="h-8 w-8 p-0 hover:bg-accent text-muted-foreground"
-              title="Move to Current Mission"
-            >
-              <ArrowLeft className="h-4 w-4" />
-            </Button>
-          )}
-
           <Button
             variant="ghost"
             size="sm"
             onClick={() => {
               const newText = prompt('Edit task:', task.text);
               if (newText && newText.trim()) {
-                const newTimeStr = task.timeAllocation ? 
-                  prompt('Edit time allocation (hours):', task.timeAllocation.toString()) : null;
-                const timeAllocation = newTimeStr ? parseFloat(newTimeStr) : task.timeAllocation;
+                const newTime = task.timeAllocation ? 
+                  prompt('Edit time allocation (minutes):', task.timeAllocation.toString()) : null;
+                const timeAllocation = newTime ? parseInt(newTime) : task.timeAllocation;
                 onEdit(task.id, newText.trim(), timeAllocation);
               }
             }}
