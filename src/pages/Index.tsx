@@ -11,7 +11,6 @@ import Confetti from '../components/Confetti';
 import SparklyBackground from '../components/SparklyBackground';
 import SettingsModal from '../components/settings/SettingsModal';
 import AccountabilityPartner from '../components/accountability/AccountabilityPartner';
-import GoogleSignIn from '../components/auth/GoogleSignIn';
 import { Button } from '@/components/ui/button';
 import { Timer as TimerIcon, Clock, Settings, Users } from 'lucide-react';
 import AuthGuard from "../components/AuthGuard";
@@ -113,7 +112,6 @@ const Index = () => {
             </p>
           </div>
           <div className="bg-card border border-border rounded-2xl p-6 shadow-lg">
-            <GoogleSignIn onSignIn={handleGoogleSignIn} />
           </div>
         </div>
       </div>

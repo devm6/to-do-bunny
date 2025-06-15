@@ -1,11 +1,10 @@
-
 import React from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
 const Auth: React.FC = () => {
-  const { user, signInWithGoogle, loading } = useAuth();
+  const { user, loading } = useAuth();
 
   if (loading) {
     return (
@@ -28,9 +27,8 @@ const Auth: React.FC = () => {
           Welcome to To Do Bunny 🐰
         </h1>
         <p className="text-pink-400">Sign in to start your pookie productivity journey ✨</p>
-        <Button onClick={signInWithGoogle} className="bg-pink-400 hover:bg-pink-500 text-white w-full max-w-xs">
-          Sign in with Google
-        </Button>
+        {/* The Google sign-in button has been removed. */}
+        {/* You may add another sign-in option here if required. */}
       </div>
     </div>
   );
