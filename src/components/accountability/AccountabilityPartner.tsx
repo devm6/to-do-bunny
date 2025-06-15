@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import {
   Dialog,
@@ -198,3 +197,5 @@ const AccountabilityPartner: React.FC<AccountabilityPartnerProps> = ({
 };
 
 export default AccountabilityPartner;
+
+console.log("AccountabilityPartner component loaded");

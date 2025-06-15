@@ -1,4 +1,3 @@
-
 import { useState, useCallback, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -251,6 +250,8 @@ export function useAccountabilityPartner(): UseAccountabilityPartnerResult {
     fetchConnection();
     // eslint-disable-next-line
   }, [user]);
+
+  console.log("useAccountabilityPartner hook loaded");
 
   return {
     myCode,
