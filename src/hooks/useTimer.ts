@@ -1,8 +1,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
-import { TimerState, Task } from '../types/task';
+import { TimerState, Task, BunnyMood } from '../types/task';
 
-export const useTimer = (tasks: Task[], setTasks: (fn: (prev: Task[]) => Task[]) => void, setBunnyMood: (mood: string) => void) => {
+export const useTimer = (tasks: Task[], setTasks: (fn: (prev: Task[]) => Task[]) => void, setBunnyMood: (mood: BunnyMood) => void) => {
   const [timerState, setTimerState] = useState<TimerState>({
     activeTaskId: null,
     isRunning: false,
@@ -119,3 +119,4 @@ export const useTimer = (tasks: Task[], setTasks: (fn: (prev: Task[]) => Task[])
     resetTimer
   };
 };
+

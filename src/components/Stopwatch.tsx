@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, RotateCcw, X, Maximize } from 'lucide-react';
@@ -44,12 +43,25 @@ const Stopwatch: React.FC<StopwatchProps> = ({ onClose }) => {
   };
 
   const formatTime = (centiseconds: number) => {
-    const totalMs = centiseconds * 10;
-    const minutes = Math.floor(totalMs / 60000);
-    const seconds = Math.floor((totalMs % 60000) / 1000);
-    const cs = Math.floor((totalMs % 1000) / 10);
-    
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${cs.toString().padStart(2, '0')}`;
+    const totalSeconds = Math.floor(centiseconds / 100);
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const secs = totalSeconds % 60;
+    const cs = centiseconds % 100;
+
+    const hoursStr = hours.toString().padStart(2, '0');
+    const minutesStr = minutes.toString().padStart(2, '0');
+    const secsStr = secs.toString().padStart(2, '0');
+    const csStr = cs.toString().padStart(2, '0');
+
+    if (days > 0) {
+      return `${days}:${hoursStr}:${minutesStr}:${secsStr}.${csStr}`;
+    }
+    if (hours > 0) {
+      return `${hoursStr}:${minutesStr}:${secsStr}.${csStr}`;
+    }
+    return `${minutesStr}:${secsStr}.${csStr}`;
   };
 
   if (isFullscreen) {

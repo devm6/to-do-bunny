@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Play, Pause, RotateCcw, X, Maximize } from 'lucide-react';
@@ -8,12 +7,15 @@ interface TimerProps {
 }
 
 const Timer: React.FC<TimerProps> = ({ onClose }) => {
-  const [minutes, setMinutes] = useState(25);
-  const [seconds, setSeconds] = useState(0);
   const [totalSeconds, setTotalSeconds] = useState(25 * 60);
   const [isRunning, setIsRunning] = useState(false);
   const [inputMinutes, setInputMinutes] = useState('25');
   const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -22,13 +24,9 @@ const Timer: React.FC<TimerProps> = ({ onClose }) => {
       interval = setInterval(() => {
         setTotalSeconds(prev => {
           const newTotal = prev - 1;
-          setMinutes(Math.floor(newTotal / 60));
-          setSeconds(newTotal % 60);
-          
           if (newTotal === 0) {
             setIsRunning(false);
           }
-          
           return newTotal;
         });
       }, 1000);
@@ -40,11 +38,12 @@ const Timer: React.FC<TimerProps> = ({ onClose }) => {
   }, [isRunning, totalSeconds]);
 
   const handleStart = () => {
-    if (totalSeconds === 0) {
-      const newTotal = parseInt(inputMinutes) * 60;
+    if (totalSeconds <= 0) {
+      const newTotal = parseInt(inputMinutes || '0', 10) * 60;
+      if (newTotal <= 0) {
+        return; // Don't start if there's no time
+      }
       setTotalSeconds(newTotal);
-      setMinutes(Math.floor(newTotal / 60));
-      setSeconds(newTotal % 60);
     }
     setIsRunning(true);
   };
@@ -55,19 +54,15 @@ const Timer: React.FC<TimerProps> = ({ onClose }) => {
 
   const handleReset = () => {
     setIsRunning(false);
-    const newTotal = parseInt(inputMinutes) * 60;
+    const newTotal = parseInt(inputMinutes || '0', 10) * 60;
     setTotalSeconds(newTotal);
-    setMinutes(Math.floor(newTotal / 60));
-    setSeconds(newTotal % 60);
   };
 
   const handleInputChange = (value: string) => {
     if (!isRunning) {
       setInputMinutes(value);
-      const newTotal = parseInt(value || '0') * 60;
+      const newTotal = parseInt(value || '0', 10) * 60;
       setTotalSeconds(newTotal);
-      setMinutes(Math.floor(newTotal / 60));
-      setSeconds(newTotal % 60);
     }
   };
 
@@ -75,8 +70,18 @@ const Timer: React.FC<TimerProps> = ({ onClose }) => {
     setIsFullscreen(!isFullscreen);
   };
 
-  const formatTime = (mins: number, secs: number) => {
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  const formatTime = (d: number, h: number, m: number, s: number) => {
+    const hoursStr = h.toString().padStart(2, '0');
+    const minutesStr = m.toString().padStart(2, '0');
+    const secsStr = s.toString().padStart(2, '0');
+
+    if (d > 0) {
+      return `${d}:${hoursStr}:${minutesStr}:${secsStr}`;
+    }
+    if (h > 0) {
+      return `${hoursStr}:${minutesStr}:${secsStr}`;
+    }
+    return `${minutesStr}:${secsStr}`;
   };
 
   if (isFullscreen) {
@@ -84,7 +89,7 @@ const Timer: React.FC<TimerProps> = ({ onClose }) => {
       <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
         <div className="text-center">
           <div className="text-9xl font-bold text-white mb-8" style={{ fontFamily: 'Courier New, monospace' }}>
-            {formatTime(minutes, seconds)}
+            {formatTime(days, hours, minutes, seconds)}
           </div>
           <Button
             onClick={handleFullscreen}
@@ -125,10 +130,10 @@ const Timer: React.FC<TimerProps> = ({ onClose }) => {
 
         <div className="mb-6">
           <div className="text-6xl font-bold text-white mb-4" style={{ fontFamily: 'Courier New, monospace' }}>
-            {formatTime(minutes, seconds)}
+            {formatTime(days, hours, minutes, seconds)}
           </div>
           
-          {!isRunning && totalSeconds === parseInt(inputMinutes) * 60 && (
+          {!isRunning && totalSeconds === parseInt(inputMinutes || '0', 10) * 60 && (
             <div className="mb-4">
               <label className="text-white text-sm block mb-2">Set minutes:</label>
               <input
