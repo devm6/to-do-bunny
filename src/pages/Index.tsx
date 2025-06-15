@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useTaskManager } from '../hooks/useTaskManager';
 import BunnyCompanion from '../components/BunnyCompanion';
@@ -15,6 +14,8 @@ import AccountabilityPartner from '../components/accountability/AccountabilityPa
 import GoogleSignIn from '../components/auth/GoogleSignIn';
 import { Button } from '@/components/ui/button';
 import { Timer as TimerIcon, Clock, Settings, Users } from 'lucide-react';
+import AuthGuard from "../components/AuthGuard";
+import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
   const {
@@ -119,8 +120,21 @@ const Index = () => {
     );
   }
 
+  const { user, signOut } = useAuth();
+
   return (
-    <div className="min-h-screen bg-background p-4 relative">
+    <AuthGuard>
+      {/* Sign Out button */}
+      <div className="fixed top-4 left-4 z-50">
+        <Button
+          variant="outline"
+          size="sm"
+          className="border-pink-200 text-pink-500"
+          onClick={signOut}
+        >
+          Log Out
+        </Button>
+      </div>
       {/* Enhanced sparkly background */}
       <SparklyBackground />
       
@@ -291,7 +305,7 @@ const Index = () => {
           onResetTimer={resetTimer}
         />
       )}
-    </div>
+    </AuthGuard>
   );
 };
 
