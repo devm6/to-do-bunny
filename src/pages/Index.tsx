@@ -1,20 +1,20 @@
+
 import React, { useState } from 'react';
 import { useTaskManager } from '../hooks/useTaskManager';
 import { useAuth } from '../hooks/useAuth';
-import BunnyCompanion from '../components/BunnyCompanion';
 import TaskInput from '../components/TaskInput';
-import TaskList from '../components/TaskList';
 import Timer from '../components/Timer';
 import Stopwatch from '../components/Stopwatch';
 import FullscreenTimer from '../components/FullscreenTimer';
 import SignInModal from '../components/auth/SignInModal';
 import CalendarView from '../components/calendar/CalendarView';
-import CarrotCounter from '../components/CarrotCounter';
 import Confetti from '../components/Confetti';
 import SparklyBackground from '../components/SparklyBackground';
-import { Button } from '@/components/ui/button';
-import { Timer as TimerIcon, Clock, Calendar, User, LogOut } from 'lucide-react';
-import SignInDropdown from "../components/auth/SignInDropdown";
+import HeaderBar from '../components/layout/HeaderBar';
+import BunnyArea from '../components/layout/BunnyArea';
+import TopActionButtons from '../components/layout/TopActionButtons';
+import PookieTabNav from '../components/layout/PookieTabNav';
+import MainTaskContainer from '../components/layout/MainTaskContainer';
 
 const Index = () => {
   const {
@@ -70,21 +70,14 @@ const Index = () => {
   const counts = getTabCounts();
   const activeTask = tasks.find(task => task.id === timerState.activeTaskId);
 
-  const tabButtons = [{
-    key: 'focus' as const,
-    label: "Pookie's Current Mission 💕",
-    count: counts.focus
-  }, {
-    key: 'completed' as const,
-    label: 'Pookie Victories ✨',
-    count: counts.completed
-  }, {
-    key: 'pending' as const,
-    label: 'Future Pookie Goals 🌸',
-    count: counts.pending
-  }];
+  // Tab data for navigation
+  const tabButtons = [
+    { key: 'focus' as const, label: "Pookie's Current Mission 💕", count: counts.focus },
+    { key: 'completed' as const, label: 'Pookie Victories ✨', count: counts.completed },
+    { key: 'pending' as const, label: 'Future Pookie Goals 🌸', count: counts.pending }
+  ];
 
-  // Connect partner login actions
+  // Social login placeholder handlers
   const handleSocialSignIn = (provider: "google" | "github") => {
     window.alert(
       provider === "google"
@@ -95,50 +88,27 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background p-4 relative">
-      {/* Sparkly animated background */}
       <SparklyBackground />
-      
-      {/* Confetti effect */}
-      <Confetti 
-        isActive={showConfetti} 
-        onComplete={() => setShowConfetti(false)} 
-      />
-      
+      <Confetti isActive={showConfetti} onComplete={() => setShowConfetti(false)} />
+
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* Header with enhanced pookie vibes */}
         <header className="text-center mb-8 relative">
-          <div className="absolute top-0 right-0 flex items-center gap-4">
-            <CarrotCounter count={carrotCount} />
-            {isAuthenticated ? (
-              <div className="flex items-center gap-2">
-                <span className="text-pink-200 text-sm">
-                  Hi, {user?.username}! 💕
-                </span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={signOut}
-                  className="text-pink-200 hover:bg-pink-500/20"
-                >
-                  <LogOut className="h-4 w-4" />
-                </Button>
-              </div>
-            ) : (
-              <SignInDropdown
-                onSignIn={(email, username, remember) => {
-                  // Persist "retain memory" with a flag in localStorage; real solution should use a JWT with 'remember'
-                  if (remember) {
-                    localStorage.setItem("pookie-remember", "1");
-                  } else {
-                    localStorage.removeItem("pookie-remember");
-                  }
-                  signIn(email, username);
-                }}
-                onSocialSignIn={handleSocialSignIn}
-              />
-            )}
-          </div>
-          
+          <HeaderBar
+            carrotCount={carrotCount}
+            isAuthenticated={isAuthenticated}
+            user={user}
+            onSignOut={signOut}
+            onSignIn={(email, username, remember) => {
+              if (remember) {
+                localStorage.setItem("pookie-remember", "1");
+              } else {
+                localStorage.removeItem("pookie-remember");
+              }
+              signIn(email, username);
+            }}
+            onSocialSignIn={handleSocialSignIn}
+          />
+
           <div className="gentle-fade-in">
             <h1 className="text-4xl font-bold text-foreground mb-2" style={{
               background: 'linear-gradient(45deg, #ff69b4, #ff1493, #da70d6)',
@@ -156,108 +126,38 @@ const Index = () => {
           </div>
         </header>
 
-        {/* Enhanced buttons with Calendar */}
-        <div className="flex justify-center gap-4 mb-8 flex-wrap">
-          <Button 
-            onClick={() => setShowTimer(true)} 
-            variant="outline" 
-            className="border-pink-300/50 text-pink-200 hover:bg-pink-500/20 hover:text-pink-100 hover:border-pink-300 transition-all duration-300"
-            style={{
-              boxShadow: '0 0 15px rgba(255, 105, 180, 0.3)'
-            }}
-          >
-            <TimerIcon className="h-4 w-4 mr-2" />
-            Pookie Timer 💖
-          </Button>
-          <Button 
-            onClick={() => setShowStopwatch(true)} 
-            variant="outline" 
-            className="border-purple-300/50 text-purple-200 hover:bg-purple-500/20 hover:text-purple-100 hover:border-purple-300 transition-all duration-300"
-            style={{
-              boxShadow: '0 0 15px rgba(138, 43, 226, 0.3)'
-            }}
-          >
-            <Clock className="h-4 w-4 mr-2" />
-            Pookie Stopwatch ⏰
-          </Button>
-          <Button 
-            onClick={() => setShowCalendar(true)} 
-            variant="outline" 
-            className="border-pink-300/50 text-pink-200 hover:bg-pink-500/20 hover:text-pink-100 hover:border-pink-300 transition-all duration-300"
-            style={{
-              boxShadow: '0 0 15px rgba(255, 105, 180, 0.3)'
-            }}
-          >
-            <Calendar className="h-4 w-4 mr-2" />
-            Calendar View 📅
-          </Button>
-        </div>
+        <TopActionButtons
+          onShowTimer={() => setShowTimer(true)}
+          onShowStopwatch={() => setShowStopwatch(true)}
+          onShowCalendar={() => setShowCalendar(true)}
+        />
 
-        {/* Bunny Companion in main content */}
-        <div className="mb-8 flex justify-center">
-          <div className="gentle-fade-in">
-            <BunnyCompanion mood={bunnyMood} />
-          </div>
-        </div>
+        <BunnyArea bunnyMood={bunnyMood} />
 
-        {/* Task Input */}
         <div className="mb-8">
           <TaskInput onAddTask={addTask} />
         </div>
 
-        {/* Tab Navigation with enhanced pookie styling */}
-        <div className="mb-6">
-          <div className="flex gap-2 bg-gradient-to-r from-pink-900/20 via-purple-900/20 to-pink-900/20 p-1 rounded-xl w-fit border border-pink-300/20" style={{
-            boxShadow: '0 0 20px rgba(255, 105, 180, 0.2)'
-          }}>
-            {tabButtons.map(tab => (
-              <Button 
-                key={tab.key}
-                variant={activeTab === tab.key ? "default" : "ghost"}
-                onClick={() => setActiveTab(tab.key)}
-                className={`rounded-lg px-4 py-2 font-medium transition-all duration-200 ${
-                  activeTab === tab.key 
-                    ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-sm' 
-                    : 'hover:bg-pink-500/10 text-pink-200 hover:text-pink-100'
-                }`}
-                style={{
-                  textShadow: activeTab === tab.key ? '0 0 10px rgba(255, 255, 255, 0.5)' : 'none'
-                }}
-              >
-                {tab.label}
-                {tab.count > 0 && (
-                  <span className={`ml-2 px-2 py-0.5 text-xs rounded-full ${
-                    activeTab === tab.key 
-                      ? 'bg-white/20 text-white' 
-                      : 'bg-pink-500/20 text-pink-200'
-                  }`}>
-                    {tab.count}
-                  </span>
-                )}
-              </Button>
-            ))}
-          </div>
-        </div>
+        <PookieTabNav
+          activeTab={activeTab}
+          tabs={tabButtons}
+          onTabChange={setActiveTab}
+        />
 
-        {/* Task List with enhanced pookie container */}
-        <div className="bg-gradient-to-br from-pink-900/10 via-card to-purple-900/10 border border-pink-300/20 rounded-2xl p-6 shadow-lg" style={{
-          boxShadow: '0 0 30px rgba(255, 105, 180, 0.15)'
-        }}>
-          <TaskList 
-            tasks={tasks}
-            activeList={activeTab}
-            timerState={timerState}
-            showCarrotGain={showCarrotGain}
-            onToggleComplete={handleToggleComplete}
-            onStartTimer={startTimer}
-            onPauseTimer={pauseTimer}
-            onResetTimer={resetTimer}
-            onDelete={deleteTask}
-            onEdit={editTask}
-            onFullscreen={handleFullscreen}
-            onMoveTask={moveTask}
-          />
-        </div>
+        <MainTaskContainer
+          tasks={tasks}
+          activeList={activeTab}
+          timerState={timerState}
+          showCarrotGain={showCarrotGain}
+          onToggleComplete={handleToggleComplete}
+          onStartTimer={startTimer}
+          onPauseTimer={pauseTimer}
+          onResetTimer={resetTimer}
+          onDelete={deleteTask}
+          onEdit={editTask}
+          onFullscreen={handleFullscreen}
+          onMoveTask={moveTask}
+        />
       </div>
 
       {/* Modals */}
