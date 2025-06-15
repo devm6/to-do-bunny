@@ -2,21 +2,28 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Plus } from 'lucide-react';
 
 interface TaskInputProps {
-  onAddTask: (text: string, timeAllocation?: number) => void;
+  onAddTask: (text: string, timeAllocation?: number, status?: 'focus' | 'pending') => void;
 }
 
 const TaskInput: React.FC<TaskInputProps> = ({ onAddTask }) => {
   const [taskText, setTaskText] = useState('');
   const [timeAllocation, setTimeAllocation] = useState('');
+  const [timeUnit, setTimeUnit] = useState<'minutes' | 'hours'>('hours');
+  const [assignTo, setAssignTo] = useState<'focus' | 'pending'>('focus');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (taskText.trim()) {
-      const timeInMinutes = timeAllocation ? parseInt(timeAllocation) : undefined;
-      onAddTask(taskText.trim(), timeInMinutes);
+      let timeInHours: number | undefined;
+      if (timeAllocation) {
+        const timeValue = parseInt(timeAllocation);
+        timeInHours = timeUnit === 'minutes' ? timeValue / 60 : timeValue;
+      }
+      onAddTask(taskText.trim(), timeInHours, assignTo);
       setTaskText('');
       setTimeAllocation('');
     }
@@ -41,17 +48,43 @@ const TaskInput: React.FC<TaskInputProps> = ({ onAddTask }) => {
         <div className="flex gap-3">
           <div className="flex-1">
             <label className="text-xs text-muted-foreground mb-1 block">
-              Time allocation (minutes)
+              Time allocation
             </label>
-            <Input
-              type="number"
-              value={timeAllocation}
-              onChange={(e) => setTimeAllocation(e.target.value)}
-              placeholder="30"
-              min="1"
-              max="480"
-              className="bg-muted border-border rounded-xl text-foreground placeholder:text-muted-foreground"
-            />
+            <div className="flex gap-2">
+              <Input
+                type="number"
+                value={timeAllocation}
+                onChange={(e) => setTimeAllocation(e.target.value)}
+                placeholder={timeUnit === 'hours' ? '2' : '30'}
+                min="1"
+                max={timeUnit === 'hours' ? '24' : '1440'}
+                className="bg-muted border-border rounded-xl text-foreground placeholder:text-muted-foreground"
+              />
+              <Select value={timeUnit} onValueChange={(value: 'minutes' | 'hours') => setTimeUnit(value)}>
+                <SelectTrigger className="w-24 bg-muted border-border rounded-xl">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="minutes">min</SelectItem>
+                  <SelectItem value="hours">hrs</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="flex-1">
+            <label className="text-xs text-muted-foreground mb-1 block">
+              Assign to
+            </label>
+            <Select value={assignTo} onValueChange={(value: 'focus' | 'pending') => setAssignTo(value)}>
+              <SelectTrigger className="bg-muted border-border rounded-xl">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="focus">Current Mission</SelectItem>
+                <SelectItem value="pending">Future Goals</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           
           <div className="flex items-end">
