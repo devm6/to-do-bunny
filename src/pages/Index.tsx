@@ -14,6 +14,7 @@ import Confetti from '../components/Confetti';
 import SparklyBackground from '../components/SparklyBackground';
 import { Button } from '@/components/ui/button';
 import { Timer as TimerIcon, Clock, Calendar, User, LogOut } from 'lucide-react';
+import SignInDropdown from "../components/auth/SignInDropdown";
 
 const Index = () => {
   const {
@@ -83,6 +84,15 @@ const Index = () => {
     count: counts.pending
   }];
 
+  // Connect partner login actions
+  const handleSocialSignIn = (provider: "google" | "github") => {
+    window.alert(
+      provider === "google"
+        ? "Google sign-in coming soon. (Integrate Supabase's social login for production)"
+        : "GitHub sign-in coming soon."
+    );
+  };
+
   return (
     <div className="min-h-screen bg-background p-4 relative">
       {/* Sparkly animated background */}
@@ -101,7 +111,9 @@ const Index = () => {
             <CarrotCounter count={carrotCount} />
             {isAuthenticated ? (
               <div className="flex items-center gap-2">
-                <span className="text-pink-200 text-sm">Hi, {user?.username}! 💕</span>
+                <span className="text-pink-200 text-sm">
+                  Hi, {user?.username}! 💕
+                </span>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -112,15 +124,18 @@ const Index = () => {
                 </Button>
               </div>
             ) : (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setShowSignInModal(true)}
-                className="text-pink-200 hover:bg-pink-500/20"
-              >
-                <User className="h-4 w-4 mr-2" />
-                Sign In
-              </Button>
+              <SignInDropdown
+                onSignIn={(email, username, remember) => {
+                  // Persist "retain memory" with a flag in localStorage; real solution should use a JWT with 'remember'
+                  if (remember) {
+                    localStorage.setItem("pookie-remember", "1");
+                  } else {
+                    localStorage.removeItem("pookie-remember");
+                  }
+                  signIn(email, username);
+                }}
+                onSocialSignIn={handleSocialSignIn}
+              />
             )}
           </div>
           
